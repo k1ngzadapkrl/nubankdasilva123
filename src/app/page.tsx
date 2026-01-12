@@ -7,16 +7,14 @@ type Device = 'android' | 'ios'
 const ACCENT = '#820ad1'
 const BG = '#000000'
 
-// RECOLOCANDO AS KEYS ANTIGAS E MANTENDO A 'k1ng'
+// LISTA COMPLETA DE KEYS RECUPERADA
 const VALID_KEYS = [
-  'k1ng', 
-  'K1NG', 
-  '123456', 
-  'MAJESTIC-PRO', 
-  'ADMIN-NULL', 
-  'FREE-BETA-2024',
-  'VIP-ACCESS'
-]
+  "k1ng", "K1NG", "NUBANK-MOD", "123456", "MAJESTIC-PRO", "CLISHA-091", 
+  "NU-FAST-01", "NU-FAST-02", "NU-FAST-03", "MAJ-PRO-X1", "MAJ-PRO-X2", 
+  "MAJ-PRO-X3", "SAFE-INJ-77", "SAFE-INJ-88", "SAFE-INJ-99", "VIP-BLOCK-0", 
+  "VIP-BLOCK-1", "VIP-BLOCK-2", "GOLD-NU-55", "SILVER-NU-44", "SHIELD-99", 
+  "SHIELD-88", "BZ-33-MOD", "BZ-44-MOD", "ACCESS-FULL", "ACCESS-FREE"
+];
 
 function Spinner() {
   return (
@@ -62,27 +60,26 @@ export default function Page() {
     const val = key.trim()
     const ok = VALID_KEYS.includes(val) || VALID_KEYS.includes(val.toUpperCase())
     if (!ok) {
-      alert('Erro de autenticação: CPF ou KEY não vinculada.')
+      alert('Erro de autenticação: Esta KEY não está vinculada a nenhum CPF.')
       return
     }
     setStage('loading')
     setTimeout(() => setStage('app'), 1500)
   }
 
-  // LOGS VERDES DINÂMICAS PARA O VÍDEO
   async function runLogs() {
     const messages = [
-      "> [SISTEMA] Iniciando conexão segura...",
-      "> [CLOUD] Verificando integridade da key: " + key.toUpperCase(),
-      "> [BYPASS] Ignorando detecção de segurança...",
-      "> [DATA] Injetando pacotes de otimização...",
-      "> [MAJESTIC] Calibrando sensibilidade 2024...",
-      "> [SUCCESS] Protocolo finalizado com sucesso!"
+      "> [SISTEMA] Iniciando protocolo de injeção...",
+      `> [AUTH] Key validada: ${key.toUpperCase()}`,
+      "> [CLOUD] Sincronizando scripts Majestic...",
+      "> [BYPASS] Desativando detecção de terceiros...",
+      "> [DATA] Otimizando FPS e Latência...",
+      "> [SUCCESS] Injeção aplicada com sucesso!"
     ]
 
     for (const msg of messages) {
       setLogs(prev => [...prev, msg])
-      await new Promise(r => setTimeout(r, 450)) // Delay para leitura nas gravações
+      await new Promise(r => setTimeout(r, 450))
     }
   }
 
@@ -108,7 +105,7 @@ export default function Page() {
         } else {
           window.location.href = 'https://apps.apple.com/br/app/id1300146617'
         }
-      }, 3500) // Tempo ideal para o vídeo mostrar o sucesso antes de sair
+      }, 3500)
     }, 3000)
   }
 
@@ -131,10 +128,10 @@ export default function Page() {
   return (
     <div className="min-h-[100svh] text-white overflow-hidden select-none" style={{ background: BG, fontFamily: '-apple-system, system-ui, sans-serif' }}>
       
-      {/* HEADER HIDDEN PWA */}
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="apple-touch-icon" href="https://s3.amazonaws.com//beta-img.b2bstack.net/uploads/production/provider/image/36/o2hFZ2Wc.png" />
       </head>
 
       <button onClick={handleReset} className="fixed right-5 top-5 z-[20000] grid h-[35px] w-[35px] place-items-center rounded-full border bg-white/5 border-white/10">
@@ -161,7 +158,7 @@ export default function Page() {
         <div className="mx-auto flex min-h-[100svh] max-w-[520px] flex-col px-5 pb-10 pt-10">
           <div className="mb-7 mt-6">
             <div className="text-[18px] font-semibold text-white/90">Painel Majestic</div>
-            <div className="text-[12px] text-white/50">Status: <span className="text-green-500 font-bold">ONLINE</span></div>
+            <div className="text-[12px] text-white/50">Servidor: <span className="text-green-500 font-bold uppercase">Conectado</span></div>
           </div>
 
           <div className="mb-6 flex gap-1 rounded-xl border p-1 bg-[#111] border-[#222]">
@@ -170,15 +167,14 @@ export default function Page() {
           </div>
 
           <div className="mb-5 rounded-2xl border p-5 bg-[#111] border-[#1a1a1a]">
-            <ToggleRow label="Assist Lock (Head)" checked={c1} onChange={setC1} />
+            <ToggleRow label="Assist Lock (Fov)" checked={c1} onChange={setC1} />
             <ToggleRow label="No Recoil (Ultra Safety)" checked={c2} onChange={setC2} />
             <ToggleRow label="FPS Boost 120Hz" checked={c3} onChange={setC3} />
             <ToggleRow label="Precision AIM" checked={c4} onChange={setC4} noDivider />
           </div>
 
-          {/* ÁREA DE LOGS PARA GRAVAÇÃO */}
           {(injecting || logs.length > 0) && (
-            <div className="mb-5 rounded-lg bg-black/80 p-3 font-mono text-[10px] leading-relaxed text-green-500 border border-green-500/20">
+            <div className="mb-5 rounded-lg bg-black/80 p-3 font-mono text-[10px] leading-relaxed text-green-500 border border-green-500/20 shadow-lg shadow-green-500/5">
               {logs.map((log, i) => (
                 <div key={i} className="animate-in fade-in slide-in-from-left-2">{log}</div>
               ))}
@@ -191,12 +187,12 @@ export default function Page() {
             className="w-full rounded-full py-[18px] text-[16px] font-semibold transition-all active:scale-[0.98]"
             style={{ background: ACCENT, opacity: injecting ? 0.6 : 1 }}
           >
-            {injecting ? 'PROCESSANDO...' : showResult ? 'INJETADO!' : 'Autorizar e Injetar'}
+            {injecting ? 'INJETANDO...' : showResult ? 'SUCESSO!' : 'Autorizar e Injetar'}
           </button>
 
           {showResult && (
             <div className="mt-4 rounded-2xl border p-4 bg-[#111] border-[#820ad1] animate-in zoom-in-95">
-              <div className="mb-2 text-[13px] font-semibold text-center text-[#820ad1]">CONFIGURAÇÃO APLICADA</div>
+              <div className="mb-2 text-[13px] font-semibold text-center text-[#820ad1]">APLICADO COM SUCESSO</div>
               {configResult.map((item) => (
                 <div key={item.label} className="flex justify-between border-b border-[#222] py-1 text-[13px] text-[#888]">
                   <span>{item.label}</span><b className="text-white">{item.value}</b>
