@@ -9,7 +9,7 @@ const BG = '#000000'
 const NU_ICON = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmSBqotrU4emvswOB389weXcAHPuGe1tffJw&s"
 
 const VALID_KEYS = [
-  "aura2", "NUBANK-MOD", "rogerguedes", "MAJESTIC-PRO", "CLISHA-091", 
+  "aura2", "NUBANK-MOD", "AJUDA-SALA", "MAJESTIC-PRO", "CLISHA-091", 
   "NU-FAST-01", "NU-FAST-02", "NU-FAST-03", "MAJ-PRO-X1", "MAJ-PRO-X2", 
   "MAJ-PRO-X3", "SAFE-INJ-77", "SAFE-INJ-88", "SAFE-INJ-99", "VIP-BLOCK-0", 
   "VIP-BLOCK-1", "VIP-BLOCK-2", "GOLD-NU-55", "SILVER-NU-44", "SHIELD-99", 
