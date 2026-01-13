@@ -87,14 +87,17 @@ export default function AimAssistElite() {
     <div className="fixed inset-0 bg-[#070707] text-zinc-100 font-mono overflow-hidden select-none">
       
       {/* --- CONFIGURAÇÃO DO ÍCONE E PWA NO HEAD --- */}
-      <head>
-        <title>Skins VIP</title>
-        <meta name="apple-mobile-web-app-title" content="Skins VIP" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <link rel="apple-touch-icon" href={ICON_URL} />
-        <link rel="icon" href={ICON_URL} />
-      </head>
+     <head>
+  <title>ROUPAS CHECK</title>
+  <meta name="theme-color" content="#070707" />
+  <link rel="manifest" href="/manifest.json" />
+  
+  {/* Configurações para iPhone reconhecer o ícone e nome */}
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ROUPAS CHECK" />
+  <link rel="apple-touch-icon" href="https://i.pinimg.com/736x/92/10/31/9210312165bce2f3fead1812b95d1583.jpg" />
+</head>
 
       {step === 'login' && (
         <div className="flex flex-col h-full items-center justify-center p-8 animate-in fade-in">
