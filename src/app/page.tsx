@@ -84,7 +84,7 @@ export default function AimAssistElite() {
   }
 
   return (
-    <div className="fixed inset-0 bg-[#070707] text-zinc-100 font-mono overflow-hidden select-none">
+<div className="fixed inset-0 bg-[#070707] text-zinc-100 font-mono overflow-hidden select-none">
       
       {/* --- CONFIGURAÇÃO DO ÍCONE E PWA NO HEAD --- */}
      <head>
