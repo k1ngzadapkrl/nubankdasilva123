@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-const NUBANK_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nubank_logo_2021.svg/1200px-Nubank_logo_2021.svg.png";
+const NUBANK_LOGO = "https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-2-1.png";
 
 export const metadata: Metadata = {
   // Deixamos o título como um espaço ou algo genérico para o navegador
