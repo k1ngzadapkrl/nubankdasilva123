@@ -20,7 +20,7 @@ export default function NubankVipSystem() {
   })
 
 const VALID_KEYS = useMemo(() => [
-  "XXXX",
+  "PAINELVIP-Q9XP4KZ8M27F",
   "PAINELVIP-A9F7Q2KX8M4ZP",
   "NUBANK-MOD",
   "PAINELVIP-7Q9FZK2M8XP4A",
