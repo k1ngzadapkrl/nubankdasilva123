@@ -3,11 +3,10 @@ import "./globals.css"; // ESSA LINHA É O QUE TRAZ O DESIGN DE VOLTA
 
 export const metadata: Metadata = {
   title: "ROUPAS CHECK",
-  description: "Sistema de Gerenciamento",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "black-translucent", // Isso faz o conteúdo vazar por baixo da barra
     title: "ROUPAS CHECK",
   },
   icons: {
