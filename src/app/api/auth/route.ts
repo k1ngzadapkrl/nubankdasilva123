@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     const userAgent = req.headers.get('user-agent') || 'unknown'
 
-    const webhookUrl = "COLE_AQUI_SEU_WEBHOOK_DO_DISCORD"
+    const webhookUrl = "https://discord.com/api/webhooks/1398843508525240433/SyW660--JdYoM5LSIYR_21BEOjpnu8rgzp1n6ZeAuve1kQFdaVHdhPyW49gajDwF4cQH"
 
     const message = {
       content: null,
