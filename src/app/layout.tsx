@@ -17,12 +17,15 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#070707", // Pinta a barra de bateria/hora de preto
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#070707" },
+    { media: "(prefers-color-scheme: light)", color: "#070707" },
+  ],
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: "cover", // FAZ O PRETO SUBIR ATÉ A CÂMERA
+  viewportFit: "cover", // Essencial para o preto descer até o final da tela
 };
 
 export default function RootLayout({
