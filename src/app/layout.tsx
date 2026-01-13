@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import "./globals.css"; // ESSA LINHA É O QUE TRAZ O DESIGN DE VOLTA
 
 export const metadata: Metadata = {
   title: "ROUPAS CHECK",
