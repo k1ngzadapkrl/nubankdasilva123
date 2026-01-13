@@ -1,16 +1,21 @@
 {
-  "name": "Portal de Acessos",
-  "short_name": "ROUPAS",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "short_name": "ROUPAS CHECK",
+  "name": "ROUPAS DE MARCA",
   "icons": [
     {
-      "src": "https://media.discordapp.net/attachments/1341521590797471879/1460465279703187496/nike-logo-white-with-name-clothes-design-icon-abstract-football-illustration-with-black-background-free-vector.png?ex=696703c8&is=6965b248&hm=2f04733bdd9df732cfec837942aae9cc1bbe89ee35ded0b17372d3254ff2f276&=&format=webp&quality=lossless",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "https://i.pinimg.com/736x/92/10/31/9210312165bce2f3fead1812b95d1583.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
       "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.pinimg.com/736x/92/10/31/9210312165bce2f3fead1812b95d1583.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
     }
-  ]
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#070707",
+  "background_color": "#070707"
 }
