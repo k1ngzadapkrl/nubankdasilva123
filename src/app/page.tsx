@@ -1,16 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 
-export default function PortalPerformance() {
-  const [stage, setStage] = useState<'login' | 'select-os' | 'panel'>('login')
-  const [key, setKey] = useState('')
-  const [os, setOs] = useState<'ANDROID' | 'IOS'>('IOS')
-  const [intensity, setIntensity] = useState<'ALTA' | 'BAIXA'>('ALTA')
-  const [isProcessing, setIsProcessing] = useState(false)
+const ICON_MUSIC = "https://cdn-icons-png.flaticon.com/512/3844/3844724.png"
+
+export default function MusicPerformancePRO() {
+  const [step, setStep] = useState<'login' | 'os' | 'panel'>('login')
+  const [password, setPassword] = useState('')
+  const [os, setOs] = useState<'android' | 'ios'>('android')
+  const [aimValue, setAimValue] = useState(15)
   const [isInjecting, setIsInjecting] = useState(false)
-  const [senseResult, setSenseResult] = useState<any>(null)
-  const [logs, setLogs] = useState<string[]>([])
+  const [showMiniPanel, setShowMiniPanel] = useState(false)
+  const [logs, setLogs] = useState(['> System Kernel Ready...', '> Waiting Authentication...'])
   
   const [opts, setOpts] = useState({
     estabilizar: false,
@@ -18,165 +19,166 @@ export default function PortalPerformance() {
     semTremer: false
   })
 
-  const VALID_KEYS = [
-   "NUBANK-MOD", "AJUDA-SALA", "MAJESTIC-PRO", "CLISHA-091", 
-  "NU-FAST-01", "NU-FAST-02", "NU-FAST-03", "MAJ-PRO-X1", "MAJ-PRO-X2", 
-  "MAJ-PRO-X3", "SAFE-INJ-77", "SAFE-INJ-88", "SAFE-INJ-99", "VIP-BLOCK-0", 
-  "VIP-BLOCK-1", "VIP-BLOCK-2", "GOLD-NU-55", "SILVER-NU-44", "SHIELD-99", 
-  "SHIELD-88", "BZ-33-MOD", "BZ-44-MOD", "ACCESS-FULL",
-  "MAJ-WEEK-01", "MAJ-WEEK-02", "MAJ-WEEK-03", "VIP-SENSE-10", 
-  "VIP-SENSE-20", "PRO-FLOW-77", "PRO-FLOW-88", "SHIELD-XP-01", 
-  "SHIELD-XP-02", "SHIELD-XP-03", "ACCESS-PREMIUM", "ULTRA-V1-MOD", 
-  "ULTRA-V2-MOD", "ALPHA-SHIELD-1", "ALPHA-SHIELD-2", "BETA-FLOW-X", 
-  "DELTA-VIP-99", "ZETA-PRO-55", "SIGMA-MOD-44", "FAST-TRACK-07", 
-  "FAST-TRACK-08", "GLOBAL-ACCESS-1", "GLOBAL-ACCESS-2", "ELITE-XP-500", 
-  "ELITE-XP-600", "MASTER-INJ-01", "MASTER-INJ-02", "FORCE-MOD-X", 
-  "TITAN-PRO-V9", "LEGEND-FAST-0"
-  ];
+  // TODAS AS KEYS (50+)
+  const VALID_KEYS = useMemo(() => [
+    "ACESSO-FREE", "NUBANK-MOD", "123456", "MAJESTIC-PRO", "CLISHA-091", 
+    "NU-FAST-01", "NU-FAST-02", "NU-FAST-03", "MAJ-PRO-X1", "MAJ-PRO-X2", 
+    "MAJ-PRO-X3", "SAFE-INJ-77", "SAFE-INJ-88", "SAFE-INJ-99", "VIP-BLOCK-0", 
+    "VIP-BLOCK-1", "VIP-BLOCK-2", "GOLD-NU-55", "SILVER-NU-44", "SHIELD-99", 
+    "SHIELD-88", "BZ-33-MOD", "BZ-44-MOD", "ACCESS-FULL", "MAJ-WEEK-01", 
+    "MAJ-WEEK-02", "MAJ-WEEK-03", "VIP-SENSE-10", "VIP-SENSE-20", "PRO-FLOW-77", 
+    "PRO-FLOW-88", "SHIELD-XP-01", "SHIELD-XP-02", "SHIELD-XP-03", "ACCESS-PREMIUM", 
+    "ULTRA-V1-MOD", "ULTRA-V2-MOD", "ALPHA-SHIELD-1", "ALPHA-SHIELD-2", 
+    "BETA-FLOW-X", "DELTA-VIP-99", "ZETA-PRO-55", "SIGMA-MOD-44", "FAST-TRACK-07", 
+    "FAST-TRACK-08", "GLOBAL-ACCESS-1", "GLOBAL-ACCESS-2", "ELITE-XP-500", 
+    "ELITE-XP-600", "MASTER-INJ-01", "MASTER-INJ-02", "FORCE-MOD-X", 
+    "TITAN-PRO-V9", "LEGEND-FAST-0"
+  ], []);
 
   const handleLogin = () => {
-    const inputKey = key.trim().toUpperCase();
-    if (VALID_KEYS.includes(inputKey)) {
-      setStage('select-os')
+    if (VALID_KEYS.includes(password.trim().toUpperCase())) {
+      setStep('os')
     } else {
-      alert("CHAVE DE ACESSO INVÁLIDA!")
-      setKey('')
+      alert('ERRO: CHAVE DE ACESSO INVÁLIDA!')
+      setPassword('')
     }
-  }
-
-  const generateConfig = () => {
-    setIsProcessing(true)
-    setLogs([])
-    setSenseResult(null)
-    setTimeout(() => {
-      const base = intensity === 'ALTA' ? 95 : 85
-      setSenseResult({
-        geral: base + Math.floor(Math.random() * 3),
-        dpi: os === 'ANDROID' ? '720 DPI' : 'iOS Otimizado'
-      })
-      setIsProcessing(false)
-      setLogs(["> Configurações de sensibilidade geradas com sucesso!"])
-    }, 1500)
   }
 
   const handleInject = () => {
     setIsInjecting(true)
-    setLogs(["> Iniciando protocolo de injeção..."])
+    setLogs(prev => [...prev, '> Iniciando Protocolo de Injeção...'])
     
+    // Dispara alerta simulando notificação de sistema
+    if ("Notification" in window) {
+      alert("⚠️ INJECTION ALERT: Otimização de Kernel iniciada em segundo plano.");
+    }
+
     const steps = [
-      "> Criando ponte de dados segura...",
-      "> Injetando scripts de estabilização...",
-      "> Bypass de segurança concluído...",
-      "> SUCESSO! Abrindo o jogo..."
+      "> Alocando buffer em memória RAM...",
+      "> Aplicando patches de interpolação...",
+      "> Bypass de integridade concluído.",
+      "> SUCESSO! Módulo ativo."
     ]
 
-    steps.forEach((step, i) => {
+    steps.forEach((text, i) => {
       setTimeout(() => {
-        setLogs(prev => [...prev, step])
+        setLogs(prev => [...prev, text])
         if (i === steps.length - 1) {
+          setShowMiniPanel(true)
+          setIsInjecting(false)
           setTimeout(() => {
-            if (os === 'ANDROID') {
-              window.location.href = "https://play.google.com/store/apps/details?id=com.dts.freefireth"
-            } else {
-              window.location.href = "https://apps.apple.com/br/app/free-fire/id1300146617"
-            }
-          }, 1000)
+            const url = os === 'android' 
+              ? "https://play.google.com/store/apps/details?id=com.dts.freefireth"
+              : "https://apps.apple.com/br/app/free-fire/id1300146617"
+            window.open(url, '_blank')
+          }, 1500)
         }
-      }, (i + 1) * 800)
+      }, (i + 1) * 900)
     })
   }
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 font-sans select-none overflow-x-hidden">
-      {/* LOGIN */}
-      {stage === 'login' && (
-        <div className="flex flex-col pt-24 animate-in fade-in duration-500">
-          <h1 className="text-3xl font-black tracking-tighter mb-2 italic">MAJESTIC <span className="text-[#820ad1]">VIP</span></h1>
-          <p className="text-gray-500 text-sm mb-12">Portal de performance e calibração.</p>
+    <div className="fixed inset-0 bg-black text-white font-sans overflow-hidden select-none">
+      
+      {/* MINI PAINEL DE STATUS (FINGE QUE ESTÁ ATIVO) */}
+      {showMiniPanel && (
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 bg-[#0a0a0a]/90 border border-[#1DB954] rounded-2xl p-3 z-50 shadow-[0_0_20px_rgba(29,185,84,0.3)] animate-in slide-in-from-top-10">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[9px] font-black text-[#1DB954] italic">MAJESTIC PRO</span>
+            <div className="w-2 h-2 rounded-full bg-[#1DB954] animate-pulse" />
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white/5 p-1 rounded text-center">
+              <p className="text-[6px] text-gray-500 uppercase">Aimlock</p>
+              <p className="text-[8px] font-bold text-[#1DB954]">ACTIVE</p>
+            </div>
+            <div className="bg-white/5 p-1 rounded text-center">
+              <p className="text-[6px] text-gray-500 uppercase">Sense</p>
+              <p className="text-[8px] font-bold text-[#1DB954]">MAX</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TELA DE LOGIN */}
+      {step === 'login' && (
+        <div className="flex flex-col h-full items-center justify-center p-8 animate-in fade-in">
+          <img src={ICON_MUSIC} className="w-16 h-16 mb-6 opacity-30" />
+          <h1 className="text-xl font-black mb-8 tracking-[0.3em] uppercase italic">Performance <span className="text-[#1DB954]">Login</span></h1>
           <input 
-            type="text" value={key} onChange={(e) => setKey(e.target.value)}
-            placeholder="Digite sua KEY"
-            className="w-full bg-[#111] border border-white/5 p-4 rounded-2xl mb-4 outline-none focus:border-[#820ad1] text-center font-mono tracking-widest"
+            type="text" placeholder="INSIRA SUA KEY" 
+            className="w-full bg-[#111] border border-white/10 p-5 rounded-2xl mb-4 outline-none focus:border-[#1DB954] text-center font-mono tracking-widest"
+            value={password} onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={handleLogin} className="w-full bg-[#820ad1] py-4 rounded-2xl font-black uppercase text-[11px] tracking-[0.2em]">
-            Verificar Acesso
+          <button onClick={handleLogin} className="w-full bg-[#1DB954] text-black font-black py-5 rounded-2xl uppercase text-[10px] tracking-[0.2em]">Autenticar Acesso</button>
+        </div>
+      )}
+
+      {/* SELEÇÃO DE SISTEMA */}
+      {step === 'os' && (
+        <div className="flex flex-col h-full justify-center px-8 animate-in slide-in-from-bottom-6">
+          <h2 className="text-sm font-black mb-10 text-center uppercase tracking-widest text-gray-500 italic">Arquitetura de Dispositivo</h2>
+          <button onClick={() => { setOs('android'); setStep('panel') }} className="w-full bg-[#111] border border-white/5 p-7 rounded-[2rem] mb-4 flex justify-between items-center active:scale-95 transition-all">
+            <span className="font-black tracking-widest text-sm uppercase italic">Android Core</span>
+            <div className="w-10 h-10 rounded-full bg-[#1DB954]/10 flex items-center justify-center text-[#1DB954]">→</div>
+          </button>
+          <button onClick={() => { setOs('ios'); setStep('panel') }} className="w-full bg-[#111] border border-white/5 p-7 rounded-[2rem] flex justify-between items-center active:scale-95 transition-all">
+            <span className="font-black tracking-widest text-sm uppercase italic">iOS Mobile</span>
+            <div className="w-10 h-10 rounded-full bg-[#1DB954]/10 flex items-center justify-center text-[#1DB954]">→</div>
           </button>
         </div>
       )}
 
-      {/* SELEÇÃO OS */}
-      {stage === 'select-os' && (
-        <div className="flex flex-col pt-20 animate-in slide-in-from-bottom-4">
-          <h2 className="text-2xl font-bold mb-10 text-center uppercase tracking-tighter italic">Selecione seu <span className="text-[#820ad1]">Sistema</span></h2>
-          <div className="space-y-4">
-            <button onClick={() => { setOs('ANDROID'); setStage('panel') }} className="w-full bg-[#111] border border-white/5 p-6 rounded-3xl flex justify-between items-center active:scale-95 transition-all">
-              <span className="font-black tracking-[0.2em] italic">ANDROID</span>
-              <div className="w-10 h-10 rounded-full bg-[#820ad1]/20 flex items-center justify-center text-[#820ad1]">→</div>
-            </button>
-            <button onClick={() => { setOs('IOS'); setStage('panel') }} className="w-full bg-[#111] border border-white/5 p-6 rounded-3xl flex justify-between items-center active:scale-95 transition-all">
-              <span className="font-black tracking-[0.2em] italic">IOS BRASIL</span>
-              <div className="w-10 h-10 rounded-full bg-[#820ad1]/20 flex items-center justify-center text-[#820ad1]">→</div>
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* PAINEL FINAL */}
-      {stage === 'panel' && (
-        <div className="flex flex-col animate-in fade-in">
-          <header className="flex justify-between items-center mb-8 mt-4">
-             <h2 className="text-lg font-black italic tracking-tighter uppercase">{os} PERFORMANCE</h2>
-             <button onClick={() => setStage('select-os')} className="text-[9px] text-gray-500 uppercase border border-white/10 px-3 py-1 rounded-full">Voltar</button>
+      {/* PAINEL PRINCIPAL */}
+      {step === 'panel' && (
+        <div className="flex flex-col h-full pt-14 px-7 animate-in fade-in">
+          <header className="flex justify-between items-center mb-8">
+            <h1 className="text-xs font-black uppercase italic tracking-widest text-gray-400">Control <span className="text-[#1DB954]">Panel</span></h1>
+            <div className="flex items-center gap-2">
+               <div className="w-1.5 h-1.5 rounded-full bg-[#1DB954] shadow-[0_0_5px_#1DB954]" />
+               <span className="text-[9px] font-bold text-gray-500 uppercase tracking-tighter">Server Connected</span>
+            </div>
           </header>
 
-          <div className="bg-[#0a0a0a] border border-white/5 rounded-[2.5rem] p-6 mb-4">
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              <button onClick={() => setIntensity('ALTA')} className={`py-4 rounded-2xl text-[10px] font-black border transition-all ${intensity === 'ALTA' ? 'bg-[#820ad1] border-[#820ad1]' : 'border-white/5 text-gray-600'}`}>SENSE ALTA</button>
-              <button onClick={() => setIntensity('BAIXA')} className={`py-4 rounded-2xl text-[10px] font-black border transition-all ${intensity === 'BAIXA' ? 'bg-[#820ad1] border-[#820ad1]' : 'border-white/5 text-gray-600'}`}>SENSE BAIXA</button>
+          <div className="bg-[#0a0a0a] p-6 rounded-[2.5rem] border border-white/5 mb-5 shadow-2xl">
+            <div className="flex justify-between mb-5">
+              <span className="text-[9px] font-black text-gray-500 uppercase tracking-widest italic">Aimlock Tuning</span>
+              <span className="text-[#1DB954] font-mono font-bold text-xs">{aimValue}%</span>
             </div>
+            <input 
+              type="range" min="0" max="100" value={aimValue} 
+              onChange={(e) => setAimValue(parseInt(e.target.value))} 
+              className="w-full h-1 bg-[#222] appearance-none accent-[#1DB954] rounded-full mb-6" 
+            />
 
-            <div className="space-y-3 mb-6">
-              {['estabilizar', 'otimizar', 'semTremer'].map((opt) => (
-                <label key={opt} className="flex items-center space-x-3 cursor-pointer group">
-                  <input type="checkbox" checked={(opts as any)[opt]} onChange={() => setOpts({...opts, [opt]: !(opts as any)[opt]})} className="hidden" />
-                  <div className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${(opts as any)[opt] ? 'bg-[#820ad1] border-[#820ad1]' : 'border-white/20'}`}>
-                    {(opts as any)[opt] && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4"><polyline points="20 6 9 17 4 12"/></svg>}
+            <div className="space-y-4 mb-2">
+              {[
+                { id: 'estabilizar', label: 'Smooth Aim Response' },
+                { id: 'otimizar', label: 'Optimize Buffer' },
+                { id: 'semTremer', label: 'Anti-Shake Screen' }
+              ].map(item => (
+                <label key={item.id} className="flex items-center space-x-4 cursor-pointer">
+                  <input type="checkbox" checked={(opts as any)[item.id]} onChange={() => setOpts({...opts, [item.id]: !(opts as any)[item.id]})} className="hidden" />
+                  <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all ${(opts as any)[item.id] ? 'bg-[#1DB954] border-[#1DB954]' : 'border-white/10 bg-black'}`}>
+                    {(opts as any)[item.id] && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="4"><polyline points="20 6 9 17 4 12"/></svg>}
                   </div>
-                  <span className={`text-[11px] font-bold uppercase tracking-wider ${(opts as any)[opt] ? 'text-white' : 'text-gray-500'}`}>
-                    {opt === 'estabilizar' ? 'Estabilizar Mira' : opt === 'otimizar' ? 'Otimizar Free Fire' : 'Tela sem Tremer'}
-                  </span>
+                  <span className={`text-[10px] font-black uppercase tracking-widest ${(opts as any)[item.id] ? 'text-white' : 'text-gray-600'}`}>{item.label}</span>
                 </label>
               ))}
             </div>
-
-            {!senseResult ? (
-              <button onClick={generateConfig} disabled={isProcessing} className="w-full bg-white text-black font-black py-4 rounded-2xl text-[11px] uppercase tracking-widest active:scale-95 transition-all">
-                {isProcessing ? 'CALIBRANDO...' : `GERAR SENSE ${os}`}
-              </button>
-            ) : (
-              <div className="animate-in zoom-in-95">
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div className="bg-black p-4 rounded-2xl border border-white/5 text-center">
-                    <p className="text-[8px] text-gray-500 uppercase font-black">GERAL</p>
-                    <p className="text-xl font-black text-[#820ad1]">{senseResult.geral}</p>
-                  </div>
-                  <div className="bg-black p-4 rounded-2xl border border-white/5 text-center">
-                    <p className="text-[8px] text-gray-500 uppercase font-black">DPI</p>
-                    <p className="text-[10px] font-black text-[#820ad1]">{senseResult.dpi}</p>
-                  </div>
-                </div>
-                <button onClick={handleInject} disabled={isInjecting} className="w-full bg-[#820ad1] text-white font-black py-5 rounded-2xl text-[12px] uppercase tracking-[0.2em] shadow-lg shadow-[#820ad1]/30 active:scale-95 transition-all">
-                  {isInjecting ? 'INJETANDO...' : 'INJETAR NO JOGO'}
-                </button>
-              </div>
-            )}
           </div>
 
-          {logs.length > 0 && (
-            <div className="p-4 bg-[#0a0a0a] rounded-2xl border border-white/5 font-mono text-[9px] text-gray-500 space-y-2 mb-8 animate-in fade-in">
-              {logs.map((log, i) => <div key={i} className="animate-in slide-in-from-left-2 tracking-tight">{log}</div>)}
-            </div>
-          )}
+          <button 
+            onClick={handleInject}
+            disabled={isInjecting}
+            className="w-full bg-white text-black font-black py-5 rounded-[1.5rem] uppercase text-[11px] tracking-[0.3em] active:scale-95 transition-all shadow-xl disabled:opacity-50"
+          >
+            {isInjecting ? 'EXECUTANDO...' : 'INJETAR AGORA'}
+          </button>
+
+          <div className="mt-6 p-5 bg-[#080808] rounded-2xl border border-white/5 font-mono text-[8px] text-gray-600 space-y-1 h-28 overflow-y-auto">
+            {logs.map((log, i) => <div key={i} className="animate-in fade-in slide-in-from-left-2">{log}</div>)}
+          </div>
         </div>
       )}
     </div>
