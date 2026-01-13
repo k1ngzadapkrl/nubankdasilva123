@@ -1,42 +1,46 @@
-import { NextResponse } from "next/server";
-
-const WEBHOOK_URL =
-  "https://discord.com/api/webhooks/1398843508525240433/SyW660--JdYoM5LSIYR_21BEOjpnu8rgzp1n6ZeAuve1kQFdaVHdhPyW49gajDwF4cQH";
-
-// memória simples (em produção o ideal é banco)
-const keyMap = new Map<string, Set<string>>();
+import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   try {
-    const { key, fingerprint } = await req.json();
+    const body = await req.json()
+    const { key, fingerprint } = body
 
-    if (!key || !fingerprint) {
-      return NextResponse.json({ ok: false }, { status: 400 });
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0] ||
+      req.headers.get('x-real-ip') ||
+      'unknown'
+
+    const userAgent = req.headers.get('user-agent') || 'unknown'
+
+    const webhookUrl = "COLE_AQUI_SEU_WEBHOOK_DO_DISCORD"
+
+    const message = {
+      content: null,
+      embeds: [
+        {
+          title: "🔐 LOGIN COM KEY",
+          color: 3447003,
+          fields: [
+            { name: "Key", value: `\`${key}\`` },
+            { name: "Fingerprint", value: `\`${fingerprint}\`` },
+            { name: "IP", value: `\`${ip}\`` },
+            { name: "User-Agent", value: userAgent }
+          ],
+          footer: {
+            text: new Date().toLocaleString("pt-BR")
+          }
+        }
+      ]
     }
 
-    if (!keyMap.has(key)) {
-      keyMap.set(key, new Set());
-    }
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(message)
+    })
 
-    const devices = keyMap.get(key)!;
-    devices.add(fingerprint);
-
-    // SE PASSAR DE 2 DISPOSITIVOS → AVISA
-    if (devices.size > 2) {
-      await fetch(WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: `🚨 **COMPARTILHAMENTO DETECTADO**\n🔑 Key: ${key}\n📱 Dispositivos: ${devices.size}`,
-        }),
-      });
-    }
-
-    return NextResponse.json({
-      ok: true,
-      devices: devices.size,
-    });
+    return NextResponse.json({ success: true })
   } catch (err) {
-    return NextResponse.json({ ok: false }, { status: 500 });
+    return NextResponse.json({ success: false }, { status: 500 })
   }
 }
