@@ -52,14 +52,18 @@ export default function MusicaBoosterFree() {
       
       <head>
         <title>MUSICA BOOSTER</title>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="MUSICA BOOSTER" />
         <link rel="apple-touch-icon" href={MUSIC_ICON} />
+        {/* APONTA PARA O MANIFESTO QUE FORÇA ABERTURA NESTA PÁGINA */}
+        <link rel="manifest" href="/manifest-free.json" />
       </head>
 
       {/* TELA DE LOGIN FREE */}
       {step === 'login' && (
         <div className="flex flex-col h-full items-center justify-center p-8 animate-in fade-in">
-          <div className="w-24 h-24 mb-6 rounded-full bg-blue-600/10 border-2 border-blue-600/30 flex items-center justify-center">
+          <div className="w-24 h-24 mb-6 rounded-full bg-blue-600/10 border-2 border-blue-600/30 flex items-center justify-center shadow-[0_0_30px_rgba(37,99,235,0.1)]">
              <img src={MUSIC_ICON} alt="Music Icon" className="w-16 h-16 object-contain" />
           </div>
           <h1 className="text-xl font-black italic mb-1 tracking-tighter uppercase">Music <span className="text-blue-600">Booster</span></h1>
@@ -70,7 +74,7 @@ export default function MusicaBoosterFree() {
             className="w-full bg-[#111] border border-white/5 p-5 rounded-2xl mb-4 text-center font-bold tracking-widest outline-none focus:border-blue-600/50 uppercase text-white"
             value={password} onChange={(e) => setPassword(e.target.value)}
           />
-          <button onClick={handleLogin} className="w-full bg-blue-600 text-white font-black py-5 rounded-2xl uppercase text-[10px] tracking-[0.2em]">Acessar Free</button>
+          <button onClick={handleLogin} className="w-full bg-blue-600 text-white font-black py-5 rounded-2xl uppercase text-[10px] tracking-[0.2em] active:scale-95 transition-all">Acessar Free</button>
         </div>
       )}
 
@@ -107,15 +111,12 @@ export default function MusicaBoosterFree() {
               <span className="text-[9px] font-black text-red-500">TRAVADO 30%</span>
             </div>
             
-            <label className="flex items-center justify-between cursor-pointer group">
+            <div className="flex items-center justify-between cursor-pointer group" onClick={() => setFpsStable(!fpsStable)}>
               <span className="text-[10px] font-bold uppercase tracking-tight group-hover:text-blue-500 transition-colors">Estabilizar FPS</span>
-              <div 
-                onClick={() => setFpsStable(!fpsStable)}
-                className={`w-10 h-5 rounded-full transition-all relative ${fpsStable ? 'bg-blue-600' : 'bg-zinc-800'}`}
-              >
+              <div className={`w-10 h-5 rounded-full transition-all relative ${fpsStable ? 'bg-blue-600' : 'bg-zinc-800'}`}>
                 <div className={`absolute top-1 w-3 h-3 rounded-full bg-white transition-all ${fpsStable ? 'left-6' : 'left-1'}`} />
               </div>
-            </label>
+            </div>
           </div>
 
           <button 
@@ -131,8 +132,8 @@ export default function MusicaBoosterFree() {
             {logs.map((log, i) => <div key={i}><span className="text-blue-900 mr-2 font-black italic">#</span>{log}</div>)}
           </div>
 
-          <p className="text-[7px] text-zinc-700 text-center uppercase tracking-widest mt-auto mb-4">
-            Adquira o <b>Roupas Check VIP</b> para 100% Aimlock
+          <p className="text-[7px] text-zinc-700 text-center uppercase tracking-widest mt-auto mb-4 leading-loose">
+            Limite Free atingido.<br/>Adquira o <b>Roupas Check VIP</b> para liberar tudo.
           </p>
         </div>
       )}
