@@ -1,31 +1,41 @@
 import type { Metadata, Viewport } from "next";
-import "./globals.css"; // Isso garante que o CSS (fundo preto) carregue
+import "./globals.css";
+
+const NUBANK_LOGO = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Nubank_logo_2021.svg/1200px-Nubank_logo_2021.svg.png";
 
 export const metadata: Metadata = {
-  title: "ROUPAS CHECK",
+  // Deixamos o título como um espaço ou algo genérico para o navegador
+  title: " ", 
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "ROUPAS CHECK",
+    // O nome que aparecerá abaixo do ícone no iPhone (deixamos vazio conforme planejado)
+    title: " ", 
   },
   icons: {
-    icon: "https://i.pinimg.com/736x/92/10/31/9210312165bce2f3fead1812b95d1583.jpg",
-    apple: "https://i.pinimg.com/736x/92/10/31/9210312165bce2f3fead1812b95d1583.jpg",
+    icon: NUBANK_LOGO,
+    // Corrigido: Aqui deve ser apenas a URL da imagem, não a tag HTML completa
+    apple: NUBANK_LOGO, 
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#070707", // Cor da barra de bateria
+  // Mudamos para o Roxo Nubank para a barra de status combinar com o Splash/Manifest
+  themeColor: "#820AD1", 
   width: "device-width",
   initialScale: 1,
-  viewportFit: "cover", // Remove as bordas brancas em iPhones
+  maximumScale: 1, // Evita zoom indesejado ao clicar nos inputs
+  userScalable: false,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-br" className="bg-[#070707]">
-      <body className="antialiased bg-[#070707] min-h-screen">{children}</body>
+      <body className="antialiased bg-[#070707] min-h-screen">
+        {children}
+      </body>
     </html>
   );
 }
