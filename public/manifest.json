@@ -1,13 +1,13 @@
 {
   "name": "Portal de Acessos",
-  "short_name": "Portal",
+  "short_name": "ROUPAS",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3050/3050222.png",
+      "src": "https://media.discordapp.net/attachments/1341521590797471879/1460465279703187496/nike-logo-white-with-name-clothes-design-icon-abstract-football-illustration-with-black-background-free-vector.png?ex=696703c8&is=6965b248&hm=2f04733bdd9df732cfec837942aae9cc1bbe89ee35ded0b17372d3254ff2f276&=&format=webp&quality=lossless",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
