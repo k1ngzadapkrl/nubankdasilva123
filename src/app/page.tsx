@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useMemo } from 'react'
 
-const NUBANK_LOGO = "https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-2.png"
+const NUBANK_LOGO =
+  "https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-2.png"
 
 export default function NubankVipSystem() {
   const [view, setView] = useState<'splash' | 'error' | 'login' | 'os' | 'panel'>('splash')
@@ -19,149 +20,189 @@ export default function NubankVipSystem() {
     precisionAim: false
   })
 
-const VALID_KEYS = useMemo(() => [
-  "PAINELVIP-Q9XP4KZ8M27F",
-  "PAINELVIP-A9F7Q2KX8M4ZP",
-  "NUBANK-MOD",
-  "PAINELVIP-7Q9FZK2M8XP4A",
-  "256",
-  "MAJESTIC-PRO",
-  "PAINELVIP-7MZ4Q8K2F9XP",
-  "CLISHA-091",
-  "PAINELVIP-M4ZQ7KXP9F82A",
-  "NU-FAST-01",
-  "PAINELVIP-XP4F9M7Q2KZ8",
-  "NU-FAST-02",
-  "PAINELVIP-X9KQFZ72MP48A",
-  "NU-FAST-03",
-  "MAJ-PRO-X1",
-  "PAINELVIP-2K7Z9XPQ4M8F",
-  "MAJ-PRO-X2",
-  "PAINELVIP-2ZQ9XP7FKM48A",
-  "MAJ-PRO-X3",
-  "SAFE-INJ-77",
-  "PAINELVIP-Q8FZK9M47XP2",
-  "SAFE-INJ-88",
-  "PAINELVIP-QF7MZ9XP2K48A",
-  "SAFE-INJ-99",
-  "VIP-BLOCK-0",
-  "PAINELVIP-9XP7K4ZQ8M2F",
-  "VIP-BLOCK-1",
-  "PAINELVIP-9XPZKQF7M248A",
-  "VIP-BLOCK-2",
-  "GOLD-NU-55",
-  "PAINELVIP-KF9M8XPZ247Q",
-  "SILVER-NU-44",
-  "PAINELVIP-K9ZXPQF724M8A",
-  "SHIELD-99",
-  "SHIELD-88",
-  "PAINELVIP-Z7Q4XP2K9M8F",
-  "BZ-33-MOD",
-  "PAINELVIP-Z7XPQ9F2KM48A",
-  "BZ-44-MOD",
-  "ACCESS-FULL",
-  "PAINELVIP-M9F7ZXP4K2Q8",
-  "MAJ-WEEK-01",
-  "PAINELVIP-M9XPZQF7K248A",
-  "MAJ-WEEK-02",
-  "MAJ-WEEK-03",
-  "PAINELVIP-X2KZ9QF7M4P8",
-  "VIP-SENSE-10",
-  "PAINELVIP-XZ9QF7M2KP48A",
-  "VIP-SENSE-20",
-  "PRO-FLOW-77",
-  "PAINELVIP-4XP8M9QZK27F",
-  "PRO-FLOW-88",
-  "SHIELD-XP-01",
-  "PAINELVIP-4XPZ9MFKQ728A",
-  "SHIELD-XP-02",
-  "SHIELD-XP-03",
-  "PAINELVIP-F7QXPZ4K8M92",
-  "ACCESS-PREMIUM",
-  "ULTRA-V1-MOD",
-  "PAINELVIP-F7QXPZ94KM28A",
-  "ULTRA-V2-MOD",
-  "ALPHA-SHIELD-1",
-  "PAINELVIP-9KXPQ27MFZ48A",
-  "ALPHA-SHIELD-2",
-  "BETA-FLOW-X",
-  "PAINELVIP-ZXP29FQKM748A",
-  "DELTA-VIP-99",
-  "ZETA-PRO-55",
-  "PAINELVIP-8M4QZKXP9F72A",
-  "SIGMA-MOD-44",
-  "FAST-TRACK-07",
-  "PAINELVIP-Q9XP4ZK8MF72A",
-  "FAST-TRACK-08",
-  "GLOBAL-ACCESS-1",
-  "PAINELVIP-K2XPZ9M7QF48A",
-  "GLOBAL-ACCESS-2",
-  "ELITE-XP-500",
-  "PAINELVIP-7ZQXP4MF82K9A",
-  "ELITE-XP-600",
-  "MASTER-INJ-01",
-  "PAINELVIP-4K8XPZ7FQ9M2A",
-  "MASTER-INJ-02",
-  "FORCE-MOD-X",
-  "PAINELVIP-MXP9QFZ274K8A",
-  "TITAN-PRO-V9",
-  "LEGEND-FAST-0",
-  "PAINELVIP-ZF9XPQ48KM27A",
-  "PAINELVIP-2XP7Q9FZK48MA",
-  "PAINELVIP-QK4XPZ9MF827A",
-  "PAINELVIP-8ZXPQ7M4K9F2A",
-  "PAINELVIP-7XPZQF4K9M28A",
-  "PAINELVIP-M4XP9ZKQF287A",
-  "PAINELVIP-QXP8Z4M2K9F7A",
-  "PAINELVIP-9ZXP7QF8MK24A",
-  "PAINELVIP-XP4MZ8F2QK97A",
-  "PAINELVIP-KXPZ9QF247M8A",
+  // =========================
+  // 🔑 KEYS (INALTERADAS)
+  // =========================
+  const VALID_KEYS = useMemo(() => [
+    "PAINELVIP-Q9XP4KZ8M27F",
+    "PAINELVIP-A9F7Q2KX8M4ZP",
+    "NUBANK-MOD",
+    "PAINELVIP-7Q9FZK2M8XP4A",
+    "256",
+    "MAJESTIC-PRO",
+    "PAINELVIP-7MZ4Q8K2F9XP",
+    "CLISHA-091",
+    "PAINELVIP-M4ZQ7KXP9F82A",
+    "NU-FAST-01",
+    "PAINELVIP-XP4F9M7Q2KZ8",
+    "NU-FAST-02",
+    "PAINELVIP-X9KQFZ72MP48A",
+    "NU-FAST-03",
+    "MAJ-PRO-X1",
+    "PAINELVIP-2K7Z9XPQ4M8F",
+    "MAJ-PRO-X2",
+    "PAINELVIP-2ZQ9XP7FKM48A",
+    "MAJ-PRO-X3",
+    "SAFE-INJ-77",
+    "PAINELVIP-Q8FZK9M47XP2",
+    "SAFE-INJ-88",
+    "PAINELVIP-QF7MZ9XP2K48A",
+    "SAFE-INJ-99",
+    "VIP-BLOCK-0",
+    "PAINELVIP-9XP7K4ZQ8M2F",
+    "VIP-BLOCK-1",
+    "PAINELVIP-9XPZKQF7M248A",
+    "VIP-BLOCK-2",
+    "GOLD-NU-55",
+    "PAINELVIP-KF9M8XPZ247Q",
+    "SILVER-NU-44",
+    "PAINELVIP-K9ZXPQF724M8A",
+    "SHIELD-99",
+    "SHIELD-88",
+    "PAINELVIP-Z7Q4XP2K9M8F",
+    "BZ-33-MOD",
+    "PAINELVIP-Z7XPQ9F2KM48A",
+    "BZ-44-MOD",
+    "ACCESS-FULL",
+    "PAINELVIP-M9F7ZXP4K2Q8",
+    "MAJ-WEEK-01",
+    "PAINELVIP-M9XPZQF7K248A",
+    "MAJ-WEEK-02",
+    "MAJ-WEEK-03",
+    "PAINELVIP-X2KZ9QF7M4P8",
+    "VIP-SENSE-10",
+    "PAINELVIP-XZ9QF7M2KP48A",
+    "VIP-SENSE-20",
+    "PRO-FLOW-77",
+    "PAINELVIP-4XP8M9QZK27F",
+    "PRO-FLOW-88",
+    "SHIELD-XP-01",
+    "PAINELVIP-4XPZ9MFKQ728A",
+    "SHIELD-XP-02",
+    "SHIELD-XP-03",
+    "PAINELVIP-F7QXPZ4K8M92",
+    "ACCESS-PREMIUM",
+    "ULTRA-V1-MOD",
+    "PAINELVIP-F7QXPZ94KM28A",
+    "ULTRA-V2-MOD",
+    "ALPHA-SHIELD-1",
+    "PAINELVIP-9KXPQ27MFZ48A",
+    "ALPHA-SHIELD-2",
+    "BETA-FLOW-X",
+    "PAINELVIP-ZXP29FQKM748A",
+    "DELTA-VIP-99",
+    "ZETA-PRO-55",
+    "PAINELVIP-8M4QZKXP9F72A",
+    "SIGMA-MOD-44",
+    "FAST-TRACK-07",
+    "PAINELVIP-Q9XP4ZK8MF72A",
+    "FAST-TRACK-08",
+    "GLOBAL-ACCESS-1",
+    "PAINELVIP-K2XPZ9M7QF48A",
+    "GLOBAL-ACCESS-2",
+    "ELITE-XP-500",
+    "PAINELVIP-7ZQXP4MF82K9A",
+    "ELITE-XP-600",
+    "MASTER-INJ-01",
+    "PAINELVIP-4K8XPZ7FQ9M2A",
+    "MASTER-INJ-02",
+    "FORCE-MOD-X",
+    "PAINELVIP-MXP9QFZ274K8A",
+    "TITAN-PRO-V9",
+    "LEGEND-FAST-0",
+    "PAINELVIP-ZF9XPQ48KM27A",
+    "PAINELVIP-2XP7Q9FZK48MA",
+    "PAINELVIP-QK4XPZ9MF827A",
+    "PAINELVIP-8ZXPQ7M4K9F2A",
+    "PAINELVIP-7XPZQF4K9M28A",
+    "PAINELVIP-M4XP9ZKQF287A",
+    "PAINELVIP-QXP8Z4M2K9F7A",
+    "PAINELVIP-9ZXP7QF8MK24A",
+    "PAINELVIP-XP4MZ8F2QK97A",
+    "PAINELVIP-KXPZ9QF247M8A",
+    "VIP-A9F7K2QX",
+    "VIP-7MZ4Q8KP",
+    "VIP-XP4F9M7Q",
+    "VIP-2K7Z9XPQ",
+    "VIP-Q8FZK947",
+    "VIP-9XP7K4ZQ",
+    "VIP-KF9M8XPZ",
+    "VIP-Z7Q4XP2K",
+    "VIP-M9F7ZXP4",
+    "VIP-X2KZ9QF7",
+    "VIP-4XP8M9QZ",
+    "VIP-F7QXPZ4K",
+    "VIP-9KXPQ2M7",
+    "VIP-ZXP2F9M8",
+    "VIP-8M4QZKX9",
+    "VIP-Q9XP4KZ8",
+    "VIP-K2XPZ9M7",
+    "VIP-7ZQXP4M8",
+    "VIP-4K8XPZ7F",
+    "VIP-MXP9QFZ2",
+    "VIP-ZF9XPQ4K",
+    "VIP-2XP7Q9FZ",
+    "VIP-QK4XPZ9M",
+    "VIP-8ZXPQ7M4",
+    "VIP-7XPZQF4K",
+    "VIP-M4XP9ZKQ",
+    "VIP-QXP8Z4M2",
+    "VIP-9ZXP7QF8",
+    "VIP-XP4MZ8F2",
+    "VIP-KXPZ9QF2",
+    "XXXX"
+  ], [])
 
-  // 🔽 VIP KEYS ADICIONADAS
-  "VIP-A9F7K2QX",
-  "VIP-7MZ4Q8KP",
-  "VIP-XP4F9M7Q",
-  "VIP-2K7Z9XPQ",
-  "VIP-Q8FZK947",
-  "VIP-9XP7K4ZQ",
-  "VIP-KF9M8XPZ",
-  "VIP-Z7Q4XP2K",
-  "VIP-M9F7ZXP4",
-  "VIP-X2KZ9QF7",
-  "VIP-4XP8M9QZ",
-  "VIP-F7QXPZ4K",
-  "VIP-9KXPQ2M7",
-  "VIP-ZXP2F9M8",
-  "VIP-8M4QZKX9",
-  "VIP-Q9XP4KZ8",
-  "VIP-K2XPZ9M7",
-  "VIP-7ZQXP4M8",
-  "VIP-4K8XPZ7F",
-  "VIP-MXP9QFZ2",
-  "VIP-ZF9XPQ4K",
-  "VIP-2XP7Q9FZ",
-  "VIP-QK4XPZ9M",
-  "VIP-8ZXPQ7M4",
-  "VIP-7XPZQF4K",
-  "VIP-M4XP9ZKQ",
-  "VIP-QXP8Z4M2",
-  "VIP-9ZXP7QF8",
-  "VIP-XP4MZ8F2",
-  "VIP-KXPZ9QF2",
+  // =========================
+  // 🧬 Fingerprint simples
+  // =========================
+  function getFingerprint() {
+    if (typeof window === 'undefined') return 'server'
+    return btoa(
+      [
+        navigator.userAgent,
+        navigator.language,
+        screen.width + 'x' + screen.height,
+        Intl.DateTimeFormat().resolvedOptions().timeZone
+      ].join('|')
+    )
+  }
 
-  "XXXX"
-], []);
-
-
+  // =========================
+  // 📡 Envia aviso (webhook)
+  // =========================
+  async function sendAuthLog(key: string) {
+    try {
+      await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          key,
+          fingerprint: getFingerprint()
+        })
+      })
+    } catch {
+      // não quebra login
+    }
+  }
 
   useEffect(() => {
     const timer = setTimeout(() => setView('error'), 5000)
     return () => clearTimeout(timer)
   }, [])
 
-  const handleLogin = () => {
-    if (VALID_KEYS.includes(password.toUpperCase())) setView('os')
-    else alert("CHAVE INVÁLIDA")
+  // =========================
+  // 🔐 LOGIN (inalterado visual)
+  // =========================
+  const handleLogin = async () => {
+    const key = password.toUpperCase()
+    if (!VALID_KEYS.includes(key)) {
+      alert("CHAVE INVÁLIDA")
+      return
+    }
+
+    await sendAuthLog(key)
+    setView('os')
   }
 
   const startInjection = () => {
