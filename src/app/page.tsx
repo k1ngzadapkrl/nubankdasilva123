@@ -107,7 +107,7 @@ export default function NubankVipSystem() {
     "PAINELVIP-4K8XPZ7FQ9M2A",
     "MASTER-INJ-02",
     "FORCE-MOD-X",
-    "PAINELVIP-MXP9QFZ274K8A",
+    
     "TITAN-PRO-V9",
     "LEGEND-FAST-0",
     "PAINELVIP-ZF9XPQ48KM27A",
