@@ -1,10 +1,19 @@
 import { NextResponse } from 'next/server'
 
 /**
- * Controle simples em memória
- * key -> Set de fingerprints
+ * Estrutura por key:
+ * - IPs usados
+ * - Fingerprints usados
+ * - IP original
  */
-const keyUsage = new Map<string, Set<string>>()
+type KeySession = {
+  ips: Set<string>
+  fingerprints: Set<string>
+  firstIp: string
+  firstSeen: number
+}
+
+const keySessions = new Map<string, KeySession>()
 
 function getWebhookUrl() {
   const b64 = process.env.DISCORD_WEBHOOK_B64
@@ -25,17 +34,27 @@ export async function POST(req: Request) {
     const userAgent = req.headers.get('user-agent') || 'unknown'
 
     // =========================
-    // 🔎 CONTROLE DE KEY
+    // 🔎 CONTROLE DA KEY
     // =========================
-    if (!keyUsage.has(key)) {
-      keyUsage.set(key, new Set())
+    if (!keySessions.has(key)) {
+      keySessions.set(key, {
+        ips: new Set([ip]),
+        fingerprints: new Set([fingerprint]),
+        firstIp: ip,
+        firstSeen: Date.now()
+      })
     }
 
-    const fingerprints = keyUsage.get(key)!
-    fingerprints.add(fingerprint)
+    const session = keySessions.get(key)!
+    session.ips.add(ip)
+    session.fingerprints.add(fingerprint)
 
-    const accessCount = fingerprints.size
-    const sharedDetected = accessCount > 1
+    const ipChanged = ip !== session.firstIp
+    const multipleIps = session.ips.size > 1
+    const multipleFingerprints = session.fingerprints.size > 1
+
+    const sharedDetected =
+      ipChanged || multipleIps || multipleFingerprints
 
     // =========================
     // 📡 WEBHOOK
@@ -43,16 +62,22 @@ export async function POST(req: Request) {
     const webhookUrl = getWebhookUrl()
 
     const message: any = {
-      content: sharedDetected ? '⚠️ **KEY COMPARTILHADA DETECTADA** @everyone' : null,
+      content: sharedDetected
+        ? '⚠️ **KEY COMPARTILHADA DETECTADA** @everyone'
+        : null,
       embeds: [
         {
-          title: sharedDetected ? '🚨 WARNING – KEY EM USO MÚLTIPLO' : '🔐 LOGIN COM KEY',
+          title: sharedDetected
+            ? '🚨 WARNING – POSSÍVEL COMPARTILHAMENTO'
+            : '🔐 LOGIN COM KEY',
           color: sharedDetected ? 15158332 : 3447003,
           fields: [
             { name: 'Key', value: `\`${key}\`` },
-            { name: 'Fingerprint', value: `\`${fingerprint}\`` },
-            { name: 'Total de dispositivos', value: `\`${accessCount}\`` },
-            { name: 'IP', value: `\`${ip}\`` },
+            { name: 'IP Atual', value: `\`${ip}\`` },
+            { name: 'IP Original', value: `\`${session.firstIp}\`` },
+            { name: 'IPs únicos', value: `\`${session.ips.size}\`` },
+            { name: 'Fingerprints únicos', value: `\`${session.fingerprints.size}\`` },
+            { name: 'Fingerprint atual', value: `\`${fingerprint}\`` },
             { name: 'User-Agent', value: userAgent }
           ],
           footer: {
