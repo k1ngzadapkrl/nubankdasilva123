@@ -247,3 +247,27 @@ if (view === 'os') return (
 )
 
 
+return null //
+
+  return (
+    <div className="fixed inset-0 bg-black flex flex-col text-white z-20 overflow-y-auto">
+      <header className="p-6 border-b border-zinc-900 flex justify-between items-center">
+        <img src={NUBANK_LOGO} className="w-10" />
+        <span className="text-[10px] bg-[#820AD1]/20 text-[#a33df5] px-3 py-1 rounded-full font-bold">{selectedOs.toUpperCase()}</span>
+      </header>
+      <div className="p-6">
+        <h2 className="text-xl font-bold mb-6">Configurações <span className="text-[#820AD1]">Pro</span></h2>
+        <div className="space-y-4">
+          {Object.keys(opts).map((key) => (
+            <div key={key} onClick={() => setOpts(p => ({...p, [key]: !p[key as keyof typeof opts]}))} className="bg-[#111] p-5 rounded-2xl border border-zinc-900 flex justify-between items-center transition-all">
+              <span className="text-sm font-bold capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+              <div className={`w-6 h-6 rounded-md border-2 ${opts[key as keyof typeof opts] ? 'bg-[#820AD1] border-[#820AD1]' : 'border-zinc-800'}`}>{opts[key as keyof typeof opts] && "✓"}</div>
+            </div>
+          ))}
+        </div>
+        <button onClick={startInjection} disabled={isInjecting} className="w-full bg-[#820AD1] text-white font-bold py-5 rounded-3xl mt-10 text-xs uppercase">{isInjecting ? 'INJETANDO...' : 'INJETAR NO DISPOSITIVO'}</button>
+        {showConsole && <div className="mt-6 bg-[#0a0a0a] p-4 font-mono text-[9px] text-zinc-500 rounded-xl">{logs.map((l, i) => <div key={i}># {l}</div>)}</div>}
+      </div>
+    </div>
+  )
+}
