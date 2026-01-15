@@ -191,25 +191,25 @@ export default function NubankVipSystem() {
 
   if (view === 'version_select') return (
   <div className="fixed inset-0 bg-[#070707] flex flex-col justify-center p-8 z-25">
-    <h2 className="text-white text-center mb-8 font-bold text-xl">Escolha a Versão</h2>
+    <h2 className="text-white text-center mb-8 font-bold text-xl uppercase tracking-widest">Escolha a Versão</h2>
     <div className="space-y-4">
       <button 
         onClick={() => { setSelectedVersion('normal'); setView('panel'); }} 
-        className="w-full bg-[#111] p-6 rounded-2xl flex justify-between text-white font-bold border border-zinc-900"
+        className="w-full bg-[#111] p-6 rounded-2xl flex justify-between text-white font-bold border border-zinc-900 active:bg-[#1a1a1a]"
       >
-        <span>Free Fire Normal</span>
+        <span>FREE FIRE NORMAL</span>
         <span>→</span>
       </button>
       
       <button 
         onClick={() => { setSelectedVersion('max'); setView('panel'); }} 
-        className="w-full bg-[#111] p-6 rounded-2xl flex justify-between text-white font-bold border border-zinc-900"
+        className="w-full bg-[#111] p-6 rounded-2xl flex justify-between text-white font-bold border border-zinc-900 active:bg-[#1a1a1a]"
       >
-        <span>Free Fire MAX</span>
+        <span>FREE FIRE MAX</span>
         <span>→</span>
       </button>
     </div>
-    <button onClick={() => setView('os')} className="mt-6 text-zinc-500 text-xs uppercase font-bold text-center">Voltar</button>
+    <button onClick={() => setView('os')} className="mt-8 text-zinc-600 text-[10px] uppercase font-bold text-center tracking-widest">← VOLTAR</button>
   </div>
 )
 
@@ -233,17 +233,72 @@ export default function NubankVipSystem() {
 
 if (view === 'os') return (
   <div className="fixed inset-0 bg-[#070707] flex flex-col justify-center p-8 z-25">
+    <h2 className="text-white text-center mb-8 font-bold text-xl uppercase tracking-widest">Selecione o Sistema</h2>
     <div className="space-y-4">
-      {/* Note que agora setView vai para 'version_select' */}
-      <button onClick={() => { setSelectedOs('android'); setView('version_select'); }} className="w-full bg-[#111] p-6 rounded-2xl flex justify-between text-white font-bold">
-        <span>Android</span><span>→</span>
+      <button onClick={() => { setSelectedOs('android'); setView('version_select'); }} className="w-full bg-[#111] p-6 rounded-2xl flex justify-between text-white font-bold border border-zinc-900 active:bg-[#1a1a1a]">
+        <span>ANDROID</span><span>→</span>
       </button>
-      <button onClick={() => { setSelectedOs('ios'); setView('version_select'); }} className="w-full bg-[#111] p-6 rounded-2xl flex justify-between text-white font-bold">
-        <span>iOS</span><span>→</span>
+      <button onClick={() => { setSelectedOs('ios'); setView('version_select'); }} className="w-full bg-[#111] p-6 rounded-2xl flex justify-between text-white font-bold border border-zinc-900 active:bg-[#1a1a1a]">
+        <span>IOS</span><span>→</span>
       </button>
     </div>
   </div>
 )
+
+  if (view === 'panel') return (
+  <div className="fixed inset-0 bg-black flex flex-col text-white z-20 overflow-y-auto">
+    <header className="p-6 border-b border-zinc-900 flex justify-between items-center bg-black/50 backdrop-blur-md sticky top-0 z-10">
+      <img src={NUBANK_LOGO} className="w-10" />
+      <div className="flex gap-2">
+        <span className="text-[9px] bg-[#820AD1]/20 text-[#a33df5] px-3 py-1 rounded-full font-bold">
+          {selectedOs.toUpperCase()}
+        </span>
+        <span className="text-[9px] bg-zinc-800 text-zinc-400 px-3 py-1 rounded-full font-bold uppercase">
+          FF {selectedVersion}
+        </span>
+      </div>
+    </header>
+
+    <div className="p-6">
+      <h2 className="text-xl font-bold mb-6">Configurações <span className="text-[#820AD1]">Pro</span></h2>
+      
+      <div className="space-y-4">
+        {Object.keys(opts).map((key) => (
+          <div 
+            key={key} 
+            onClick={() => setOpts(p => ({...p, [key]: !p[key as keyof typeof opts]}))} 
+            className="bg-[#111] p-5 rounded-2xl border border-zinc-900 flex justify-between items-center transition-all active:scale-[0.98]"
+          >
+            <span className="text-sm font-bold capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+            <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-colors ${opts[key as keyof typeof opts] ? 'bg-[#820AD1] border-[#820AD1]' : 'border-zinc-800'}`}>
+              {opts[key as keyof typeof opts] && <span className="text-white text-xs">✓</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button 
+        onClick={startInjection} 
+        disabled={isInjecting} 
+        className={`w-full font-bold py-5 rounded-3xl mt-10 text-xs uppercase transition-all ${isInjecting ? 'bg-zinc-800 text-zinc-500' : 'bg-[#820AD1] text-white active:scale-95'}`}
+      >
+        {isInjecting ? 'AGUARDE...' : 'INJETAR NO DISPOSITIVO'}
+      </button>
+
+      {showConsole && (
+        <div className="mt-6 bg-[#0a0a0a] p-4 font-mono text-[10px] text-zinc-500 rounded-xl border border-zinc-900">
+          {logs.map((l, i) => (
+            <div key={i} className={l === "FINALIZADO!" ? "text-[#820AD1] font-bold" : ""}>
+              {`> ${l}`}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+)
+
+return null /
 
   return (
     <div className="fixed inset-0 bg-black flex flex-col text-white z-20 overflow-y-auto">
