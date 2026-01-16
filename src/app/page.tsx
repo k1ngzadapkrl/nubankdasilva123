@@ -6,6 +6,7 @@ import Login from './components/Login'
 import OSSelect from './components/OSSelect'
 import VersionSelect from './components/VersionSelect'
 import InjectionPanel from './components/InjectionPanel'
+import SenseSelect from './components/SenseSelect'
 
 export default function NubankVipSystem() {
   const [view, setView] = useState<'splash' | 'error' | 'login' | 'os' | 'version_select' | 'panel'>('splash')
