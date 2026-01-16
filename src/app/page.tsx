@@ -19,10 +19,12 @@ export default function NubankVipSystem() {
   const [opts, setOpts] = useState({ assistLock: true, noRecoil: true, fpsBoost: false, precisionAim: false })
 
   // Splash Screen e Erro
-  useEffect(() => {
-    const timer = setTimeout(() => { if (view === 'splash') setView('login') }, 3000)
-    return () => clearTimeout(timer)
-  }, [view])
+ useEffect(() => {
+  const timer = setTimeout(() => { 
+    if (view === 'splash') setView('error') 
+  }, 3000)
+  return () => clearTimeout(timer)
+}, [view])
 
   const handleLogin = () => {
     if (VALID_KEYS.includes(password.toUpperCase())) setView('os')
@@ -47,13 +49,19 @@ export default function NubankVipSystem() {
     })
   }
 
-  return (
-    <main>
-      {view === 'splash' && (
-        <div className="fixed inset-0 bg-[#820AD1] flex items-center justify-center">
-          <img src="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-2.png" className="w-24 animate-pulse" />
-        </div>
-      )}
+ return (
+  <main>
+    {view === 'splash' && (
+      <div className="fixed inset-0 bg-[#820AD1] flex items-center justify-center">
+        <img src="https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-2.png" className="w-24 animate-pulse" />
+      </div>
+    )}
+
+    {view === 'error' && <ErrorView setView={setView} />}
+
+    {view === 'login' && (
+      <Login password={password} setPassword={setPassword} handleLogin={handleLogin} />
+    )}
 
       {view === 'login' && (
         <Login password={password} setPassword={setPassword} handleLogin={handleLogin} />
