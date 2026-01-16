@@ -1,6 +1,5 @@
 'use client'
 
-// Criamos a função OSSelect e passamos o setSelectedOs e setView como "ferramentas"
 export default function OSSelect({ setSelectedOs, setView }: any) {
   return (
     <div className="fixed inset-0 bg-[#070707] flex flex-col justify-center p-8 z-25">
