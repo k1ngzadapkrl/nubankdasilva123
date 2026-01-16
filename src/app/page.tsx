@@ -32,21 +32,34 @@ export default function NubankVipSystem() {
     else alert("CHAVE INVÁLIDA")
   }
 
-  const startInjection = () => {
+const startInjection = () => {
     setIsInjecting(true)
     setShowConsole(true)
     setLogs([])
-    const sequence = ["Conectando...", "Bypass Anticheat...", "Finalizado!"]
+
+    // Sequência de mensagens técnicas para maior realismo
+    const sequence = [
+      "Injetando configurações nos ajustes...",
+      "Injetando lib...",
+      "Calibrando screen...",
+      "Detectando arquivos...",
+      "Arquivos substituídos com sucesso!"
+    ]
+
     sequence.forEach((t, i) => {
       setTimeout(() => {
         setLogs(p => [...p, t])
-        if (i === 2) setTimeout(() => {
-          const url = selectedGame === 'max' 
-            ? (selectedOs === 'android' ? "https://play.google.com/store/apps/details?id=com.dts.freefiremax" : "https://apps.apple.com/app/id1480516829")
-            : (selectedOs === 'android' ? "https://play.google.com/store/apps/details?id=com.dts.freefireth" : "https://apps.apple.com/app/id1300146617")
-          window.location.href = url
-        }, 1000)
-      }, (i + 1) * 800)
+        
+        // Quando chegar na última mensagem, aguarda 1.5s e redireciona para o jogo
+        if (i === sequence.length - 1) {
+          setTimeout(() => {
+            const url = selectedGame === 'max' 
+              ? (selectedOs === 'android' ? "https://play.google.com/store/apps/details?id=com.dts.freefiremax" : "https://apps.apple.com/app/id1480516829")
+              : (selectedOs === 'android' ? "https://play.google.com/store/apps/details?id=com.dts.freefireth" : "https://apps.apple.com/app/id1300146617")
+            window.location.href = url
+          }, 1500)
+        }
+      }, (i + 1) * 1200) // Intervalo de 1.2 segundos entre cada mensagem
     })
   }
 
