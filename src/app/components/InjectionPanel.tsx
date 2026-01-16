@@ -35,12 +35,13 @@ export default function InjectionPanel({ selectedOs, selectedGame, opts, setOpts
           {isInjecting ? 'PROCESSANDO INJEÇÃO...' : 'INJETAR NO DISPOSITIVO'}
         </button>
 
-        {showConsole && (
-          <div className="mt-6 bg-[#0a0a0a] p-4 font-mono text-[10px] text-zinc-500 rounded-xl border border-zinc-900">
-            {logs.map((l: string, i: number) => <div key={i} className="mb-1 text-emerald-500"># {l}</div>)}
-          </div>
-        )}
+   {showConsole && (
+  <div className="mt-6 bg-[#0a0a0a] p-4 font-mono text-[10px] rounded-xl border border-zinc-900 shadow-inner">
+    {logs.map((l: string, i: number) => (
+      <div key={i} className={`mb-1 font-bold tracking-tight ${i === logs.length - 1 && l.includes('sucesso') ? 'text-emerald-500' : 'text-zinc-400'}`}>
+        {i === logs.length - 1 && !l.includes('sucesso') ? "WAIT" : "[OK]"} # {l}
       </div>
-    </div>
-  )
-}
+    ))}
+    {isInjecting && <div className="animate-pulse text-[#820AD1]">_ SYSTEM PROCESSING...</div>}
+  </div>
+)}
