@@ -6,45 +6,36 @@ export default function SenseSelect({ setView }: any) {
   const [selectedFamoso, setSelectedFamoso] = useState('Fantasma');
   const [selectedPrioridade, setSelectedPrioridade] = useState('Mais capa');
 
-  // Banco de dados das sensibilidades
   const sensiData: any = {
     "Fantasma": { geral: 191, redDot: 166, m2x: 175, m4x: 149, awm: 165, olhadinha: 169, extra: "DPI: 600" },
     "Nobru": { geral: 94, redDot: 101, m2x: 90, m4x: 114, awm: 40, olhadinha: 40, extra: "DPI: 720" },
     "Two9": { geral: 100, redDot: 95, m2x: 88, m4x: 92, awm: 50, olhadinha: 50, extra: "DPI: 800" },
     "Marechal": { geral: 98, redDot: 92, m2x: 94, m4x: 100, awm: 30, olhadinha: 45, extra: "DPI: 550" },
+    "Freitas": { geral: 97, redDot: 90, m2x: 92, m4x: 95, awm: 40, olhadinha: 50, extra: "DPI: 600" },
+    "Blackn444": { geral: 100, redDot: 100, m2x: 100, m4x: 100, awm: 50, olhadinha: 50, extra: "DPI: 960" }
   };
 
   const famosos = Object.keys(sensiData);
   const prioridades = ["Balanceada", "Mais capa", "Mais controle", "Muito rápida"];
-
   const currentSensi = sensiData[selectedFamoso] || sensiData["Fantasma"];
 
   if (showResult) {
     return (
-    <div className="fixed inset-0 bg-[#0f0f0f] text-[#e5e5e5] flex flex-col p-6 z-40 overflow-y-auto">
-      
-      {/* BOTÃO VOLTAR AJUSTADO */}
-      <button 
-        onClick={() => setView('os')} 
-        className="mt-8 mb-8 text-zinc-500 text-sm flex items-center gap-2 hover:text-white transition-colors w-fit"
-      >
-        <span className="text-lg">←</span> Voltar
-      </button>
-
-      <h2 className="text-zinc-400 text-xs mb-4 font-medium uppercase tracking-widest opacity-50">
-        Configurações inspiradas nos pros
-      </h2>
+      <div className="fixed inset-0 bg-[#0f0f0f] text-white p-6 z-50 overflow-y-auto">
+        <button onClick={() => setShowResult(false)} className="mt-8 mb-6 text-zinc-500 text-sm flex items-center gap-2">
+          <span>←</span> Voltar
+        </button>
         
         <h2 className="text-[#ff6b00] font-bold text-xl mb-1">Sensi: {selectedFamoso}</h2>
-        <p className="text-zinc-500 text-xs mb-6 font-medium">Estilo: {selectedPrioridade}</p>
+        <p className="text-zinc-500 text-xs mb-6 font-medium uppercase">Estilo: {selectedPrioridade}</p>
 
-        <div className="bg-[#1a1a1a] rounded-3xl p-2 border border-zinc-800/50">
+        <div className="bg-[#1a1a1a] rounded-3xl p-2 border border-zinc-800/50 shadow-2xl">
           {[
             { label: "Geral", val: currentSensi.geral },
-            { label: "Red Dot", val: currentSensi.redDot },
+            { label: "Ponto vermelho", val: currentSensi.redDot },
             { label: "Mira 2x", val: currentSensi.m2x },
             { label: "Mira 4x", val: currentSensi.m4x },
-            { label: "AWM / Sniper", val: currentSensi.awm },
+            { label: "Mira AWM", val: currentSensi.awm },
             { label: "Olhadinha", val: currentSensi.olhadinha },
           ].map((item, i) => (
             <div key={i} className="flex justify-between items-center p-4 border-b border-zinc-800/30 last:border-0">
@@ -55,25 +46,27 @@ export default function SenseSelect({ setView }: any) {
         </div>
 
         <div className="mt-6 p-4 bg-[#ff6b00]/10 border border-[#ff6b00]/20 rounded-2xl text-center">
-          <p className="text-[#ff6b00] text-xs font-bold uppercase tracking-widest">Configuração Extra</p>
-          <p className="text-white font-mono mt-1">{currentSensi.extra}</p>
+          <p className="text-[#ff6b00] text-[10px] font-bold uppercase tracking-widest">Ajuste de Sistema</p>
+          <p className="text-white font-mono mt-1 text-sm">{currentSensi.extra}</p>
         </div>
 
         <div className="grid grid-cols-2 gap-3 mt-8">
-          <button onClick={() => setShowResult(false)} className="bg-zinc-800 py-4 rounded-2xl font-bold text-xs uppercase">Gerar de novo</button>
-          <button className="bg-zinc-800 py-4 rounded-2xl font-bold text-xs uppercase">Copiar tudo</button>
+          <button onClick={() => setShowResult(false)} className="bg-zinc-800 py-4 rounded-2xl font-bold text-xs uppercase active:scale-95 transition-all">Gerar de novo</button>
+          <button className="bg-zinc-800 py-4 rounded-2xl font-bold text-xs uppercase active:scale-95 transition-all">Copiar tudo</button>
         </div>
-        <button className="w-full bg-[#ff6b00] text-black font-bold py-4 rounded-2xl mt-3 uppercase text-xs">Salvar Sensi</button>
+        <button className="w-full bg-[#ff6b00] text-black font-bold py-4 rounded-2xl mt-3 uppercase text-xs shadow-lg active:scale-95 transition-all">Salvar Sensi</button>
       </div>
     );
   }
 
   return (
     <div className="fixed inset-0 bg-[#0f0f0f] text-[#e5e5e5] flex flex-col p-6 z-40 overflow-y-auto">
-      <button onClick={() => setView('os')} className="mb-6 text-zinc-500 text-sm">← Voltar</button>
-      <h2 className="text-zinc-400 text-sm mb-4 font-medium uppercase tracking-tighter">Configurações inspiradas nos pros</h2>
+      <button onClick={() => setView('os')} className="mt-8 mb-8 text-zinc-500 text-sm flex items-center gap-2 hover:text-white transition-colors w-fit">
+        <span>←</span> Voltar
+      </button>
 
-      {/* Seletor de Famoso */}
+      <h2 className="text-zinc-400 text-[10px] mb-4 font-bold uppercase tracking-widest opacity-60">Configurações inspiradas nos pros</h2>
+
       <div className="bg-[#1a1a1a] p-5 rounded-3xl mb-4 border border-zinc-800/50 shadow-xl">
         <label className="text-[10px] text-zinc-500 mb-4 block uppercase font-bold">Sugestões rápidas:</label>
         <div className="flex flex-wrap gap-2">
@@ -93,9 +86,8 @@ export default function SenseSelect({ setView }: any) {
         </div>
       </div>
 
-      {/* Seletor de Prioridade */}
       <div className="bg-[#1a1a1a] p-5 rounded-3xl mb-8 border border-zinc-800/50 shadow-xl">
-        <label className="text-[10px] text-zinc-500 mb-4 block uppercase font-bold">O que você quer priorizar?</label>
+        <label className="text-[10px] text-zinc-500 mb-4 block uppercase font-bold">Prioridade:</label>
         <div className="flex flex-wrap gap-2">
           {prioridades.map((item) => (
             <button
