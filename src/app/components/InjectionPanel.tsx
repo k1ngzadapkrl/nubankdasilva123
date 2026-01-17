@@ -2,14 +2,25 @@
 
 const NUBANK_LOGO = "https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-2.png"
 
-export default function InjectionPanel({ selectedOs, selectedGame, opts, setOpts, startInjection, isInjecting, showConsole, logs }: any) {
+export default function InjectionPanel({ 
+  selectedOs, 
+  selectedGame, 
+  opts, 
+  setOpts, 
+  startInjection, 
+  isInjecting, 
+  showConsole, 
+  logs,
+  showFinalButton // Certifique-se de passar isso do page.tsx
+}: any) {
   return (
-    <div className="fixed inset-0 bg-black flex flex-col text-white z-20 overflow-y-auto">
-      <header className="p-6 border-b border-zinc-900 flex justify-between items-center bg-black/50 backdrop-blur-md sticky top-0">
+    <div className="fixed inset-0 bg-black flex flex-col text-white z-20 overflow-y-auto pb-20">
+      {/* Cabeçalho Profissional */}
+      <header className="p-6 border-b border-zinc-900 flex justify-between items-center bg-black/50 backdrop-blur-md sticky top-0 z-30">
         <img src={NUBANK_LOGO} className="w-10" alt="Nu" />
         <div className="flex gap-2">
            <span className="text-[10px] bg-zinc-800 text-zinc-400 px-3 py-1 rounded-full font-bold uppercase">{selectedOs}</span>
-           <span className="text-[10px] bg-[#820AD1]/20 text-[#a33df5] px-3 py-1 rounded-full font-bold uppercase">{selectedGame}</span>
+           <span className="text-[10px] bg-[#820AD1]/20 text-[#a33df5] px-3 py-1 rounded-full font-bold uppercase">{selectedGame === 'max' ? 'FF MAX' : 'FF NORMAL'}</span>
         </div>
       </header>
       
@@ -18,12 +29,13 @@ export default function InjectionPanel({ selectedOs, selectedGame, opts, setOpts
           MENU <span className="text-[#820AD1]">INJECTOR</span>
         </h2>
         
+        {/* Lista de Opções */}
         <div className="space-y-4">
           {Object.keys(opts).map((key) => (
             <div 
               key={key} 
-              onClick={() => setOpts((p: any) => ({...p, [key]: !p[key]}))} 
-              className="bg-[#111] p-5 rounded-2xl border border-zinc-900 flex justify-between items-center transition-all cursor-pointer active:scale-95"
+              onClick={() => !isInjecting && !showFinalButton && setOpts((p: any) => ({...p, [key]: !p[key]}))} 
+              className={`bg-[#111] p-5 rounded-2xl border border-zinc-900 flex justify-between items-center transition-all cursor-pointer ${isInjecting ? 'opacity-50' : 'active:scale-95'}`}
             >
               <span className="text-sm font-bold capitalize text-zinc-300">
                 {key.replace(/([A-Z])/g, ' $1')}
@@ -35,14 +47,16 @@ export default function InjectionPanel({ selectedOs, selectedGame, opts, setOpts
           ))}
         </div>
 
+        {/* Botão de Ativação Principal */}
         <button 
           onClick={startInjection} 
-          disabled={isInjecting} 
+          disabled={isInjecting || showFinalButton} 
           className="w-full bg-[#820AD1] text-white font-bold py-5 rounded-3xl mt-10 text-xs uppercase active:scale-95 transition-all disabled:opacity-50 shadow-[0_0_20px_rgba(130,10,209,0.3)]"
         >
-          {isInjecting ? 'EXECUTANDO BYPASS...' : 'ATIVAR TRAPAÇAS'}
+          {isInjecting ? 'EXECUTANDO BYPASS...' : showFinalButton ? 'INJEÇÃO CONCLUÍDA' : 'ATIVAR TRAPAÇAS'}
         </button>
 
+        {/* Console de Logs Estilizado */}
         {showConsole && (
           <div className="mt-6 bg-[#0a0a0a] p-4 font-mono text-[10px] rounded-xl border border-zinc-900 shadow-inner">
             {logs.map((l: string, i: number) => (
@@ -51,6 +65,27 @@ export default function InjectionPanel({ selectedOs, selectedGame, opts, setOpts
               </div>
             ))}
             {isInjecting && <div className="animate-pulse text-[#820AD1] mt-2">_ SYSTEM PROCESSING...</div>}
+          </div>
+        )}
+
+        {/* BOTÃO FINAL: Abre o jogo diretamente para resolver o bug do Android */}
+        {showFinalButton && (
+          <div className="mt-8 animate-in fade-in zoom-in duration-500 pb-10">
+            <button 
+              onClick={() => {
+                const url = selectedOs === 'android' 
+                  ? (selectedGame === 'max' ? "market://details?id=com.dts.freefiremax" : "market://details?id=com.dts.freefireth")
+                  : (selectedGame === 'max' ? "https://apps.apple.com/app/id1480516829" : "https://apps.apple.com/app/id1300146617");
+                window.location.href = url;
+              }}
+              className="w-full bg-emerald-500 text-white font-black py-6 rounded-3xl flex flex-col items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.4)] active:scale-95 transition-all border-2 border-emerald-400/20"
+            >
+              <span className="text-base uppercase tracking-widest">🚀 ABRIR FREE FIRE AGORA</span>
+              <span className="text-[10px] opacity-80 font-normal mt-1 uppercase">Clique para finalizar sincronização</span>
+            </button>
+            <p className="text-center text-zinc-600 text-[9px] mt-4 uppercase font-bold italic">
+              Otimização de sistema 100% concluída
+            </p>
           </div>
         )}
       </div>
