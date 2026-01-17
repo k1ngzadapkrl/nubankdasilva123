@@ -37,7 +37,6 @@ export default function NubankVipSystem() {
 const startInjection = () => {
   setIsInjecting(true);
   setShowConsole(true);
-
   setLogs([]);
 
   const sequence = [
