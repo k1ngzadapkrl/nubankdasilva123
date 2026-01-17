@@ -19,6 +19,7 @@ export default function NubankVipSystem() {
   const [logs, setLogs] = useState<string[]>([])
   const [showConsole, setShowConsole] = useState(false)
   const [opts, setOpts] = useState({ assistLock: true, noRecoil: true, fpsBoost: false, precisionAim: false })
+  const [showFinalButton, setShowFinalButton] = useState(false);
 
 
   // Splash Screen e Erro
@@ -37,6 +38,7 @@ export default function NubankVipSystem() {
 const startInjection = () => {
   setIsInjecting(true);
   setShowConsole(true);
+  setShowFinalButton(false); // 🔴 esconde o botão no início
   setLogs([]);
 
   const sequence = [
@@ -51,8 +53,10 @@ const startInjection = () => {
     setTimeout(() => {
       setLogs(prev => [...prev, text]);
 
+      // ✅ quando terminar a sequência
       if (i === sequence.length - 1) {
         setIsInjecting(false);
+        setShowFinalButton(true); // 🟢 MOSTRA O BOTÃO
       }
     }, (i + 1) * 1200);
   });
