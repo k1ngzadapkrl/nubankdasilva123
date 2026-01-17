@@ -18,6 +18,7 @@ export default function NubankVipSystem() {
   const [logs, setLogs] = useState<string[]>([])
   const [showConsole, setShowConsole] = useState(false)
   const [opts, setOpts] = useState({ assistLock: true, noRecoil: true, fpsBoost: false, precisionAim: false })
+  const [showFinalButton, setShowFinalButton] = useState(false);
 
   // Splash Screen e Erro
  useEffect(() => {
@@ -32,28 +33,32 @@ export default function NubankVipSystem() {
     else alert("CHAVE INVÁLIDA")
   }
 
-const startInjection = () => {
-    setIsInjecting(true)
-    setShowConsole(true)
-    setLogs([])
+onst startInjection = () => {
+  setIsInjecting(true);
+  setShowConsole(true);
+  setShowFinalButton(false);
+  setLogs([]);
 
-    // Sequência de mensagens técnicas para maior realismo
-    const sequence = [
-      "Injetando configurações nos ajustes...",
-      "Injetando lib...",
-      "Calibrando screen...",
-      "Detectando arquivos...",
-      "Arquivos substituídos com sucesso!"
-    ]
+  const sequence = [
+    "Injetando configurações nos ajustes...",
+    "Injetando lib...",
+    "Calibrando screen...",
+    "Detectando arquivos...",
+    "Arquivos substituídos com sucesso!"
+  ];
 
-    sequence.forEach((t, i) => {
-      setTimeout(() => {
-        setLogs(p => [...p, t])
-        
-        // Quando chegar na última mensagem, aguarda 1.5s e redireciona para o jogo
-     if (i === sequence.length - 1) {
-  setTimeout(() => {
-    let url = "";
+  sequence.forEach((t, i) => {
+    setTimeout(() => {
+      setLogs(p => [...p, t]);
+      
+      // Quando chegar na última mensagem, libera o botão de ação
+      if (i === sequence.length - 1) {
+        setIsInjecting(false);
+        setShowFinalButton(true);
+      }
+    }, (i + 1) * 1200);
+  });
+};
 
     if (selectedOs === 'android') {
       // Usando market:// o Android abre direto no app da Play Store
@@ -109,7 +114,8 @@ const startInjection = () => {
           startInjection={startInjection} 
           isInjecting={isInjecting} 
           showConsole={showConsole} 
-          logs={logs} 
+          logs={logs}
+          showFinalButton={showFinalButton}
         />
       )}
     </main>
