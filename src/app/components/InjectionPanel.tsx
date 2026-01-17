@@ -72,20 +72,20 @@ export default function InjectionPanel({
         {showFinalButton && (
           <div className="mt-8 animate-in fade-in zoom-in duration-500 pb-10">
             <button 
-            onClick={() => {
+onClick={() => {
   if (typeof window === 'undefined') return;
 
-  // ANDROID
+  /* ================= ANDROID ================= */
   if (selectedOs === 'android') {
     const pkg =
       selectedGame === 'max'
         ? 'com.dts.freefiremax'
         : 'com.dts.freefireth';
 
-    // tenta abrir o jogo
+    // tenta abrir o app
     window.location.href = `intent://#Intent;package=${pkg};end`;
 
-    // se não abrir, manda pra Play Store
+    // fallback: Play Store
     setTimeout(() => {
       window.location.href =
         `https://play.google.com/store/apps/details?id=${pkg}`;
@@ -94,23 +94,20 @@ export default function InjectionPanel({
     return;
   }
 
-  // IOS (não abre app direto)
-  window.location.href =
+  /* ================= iOS ================= */
+  // tenta abrir o app via URL Scheme
+  const iosScheme =
     selectedGame === 'max'
-      ? 'https://apps.apple.com/app/id1480516829'
-      : 'https://apps.apple.com/app/id1300146617';
+      ? 'freefiremax://'
+      : 'freefireth://';
+
+  window.location.href = iosScheme;
+
+  // fallback: App Store (se não tiver instalado)
+  setTimeout(() => {
+    window.location.href =
+      selectedGame === 'max'
+        ? 'https://apps.apple.com/app/id1480516829'
+        : 'https://apps.apple.com/app/id1300146617';
+  }, 1200);
 }}
-              className="w-full bg-emerald-500 text-white font-black py-6 rounded-3xl flex flex-col items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.4)] active:scale-95 transition-all border-2 border-emerald-400/20"
-            >
-              <span className="text-base uppercase tracking-widest">🚀 ABRIR FREE FIRE AGORA</span>
-              <span className="text-[10px] opacity-80 font-normal mt-1 uppercase">Clique para finalizar sincronização</span>
-            </button>
-            <p className="text-center text-zinc-600 text-[9px] mt-4 uppercase font-bold italic">
-              Otimização de sistema 100% concluída
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
