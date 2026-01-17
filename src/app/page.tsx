@@ -116,7 +116,7 @@ onst startInjection = () => {
           isInjecting={isInjecting} 
           showConsole={showConsole} 
           logs={logs}
-          showFinalButton={showFinalButton}
+          
         />
       )}
     </main>
