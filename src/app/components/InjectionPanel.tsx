@@ -75,17 +75,15 @@ export default function InjectionPanel({
 onClick={() => {
   if (typeof window === 'undefined') return;
 
-  /* ================= ANDROID ================= */
+  // ================= ANDROID =================
   if (selectedOs === 'android') {
     const pkg =
       selectedGame === 'max'
         ? 'com.dts.freefiremax'
         : 'com.dts.freefireth';
 
-    // tenta abrir o app
     window.location.href = `intent://#Intent;package=${pkg};end`;
 
-    // fallback: Play Store
     setTimeout(() => {
       window.location.href =
         `https://play.google.com/store/apps/details?id=${pkg}`;
@@ -94,8 +92,7 @@ onClick={() => {
     return;
   }
 
-  /* ================= iOS ================= */
-  // tenta abrir o app via URL Scheme
+  // ================= iOS =================
   const iosScheme =
     selectedGame === 'max'
       ? 'freefiremax://'
@@ -103,7 +100,6 @@ onClick={() => {
 
   window.location.href = iosScheme;
 
-  // fallback: App Store (se não tiver instalado)
   setTimeout(() => {
     window.location.href =
       selectedGame === 'max'
