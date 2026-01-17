@@ -51,14 +51,25 @@ const startInjection = () => {
         setLogs(p => [...p, t])
         
         // Quando chegar na última mensagem, aguarda 1.5s e redireciona para o jogo
-        if (i === sequence.length - 1) {
-          setTimeout(() => {
-            const url = selectedGame === 'max' 
-              ? (selectedOs === 'android' ? "https://play.google.com/store/apps/details?id=com.dts.freefiremax" : "https://apps.apple.com/app/id1480516829")
-              : (selectedOs === 'android' ? "https://play.google.com/store/apps/details?id=com.dts.freefireth" : "https://apps.apple.com/app/id1300146617")
-            window.location.href = url
-          }, 1500)
-        }
+     if (i === sequence.length - 1) {
+  setTimeout(() => {
+    let url = "";
+
+    if (selectedOs === 'android') {
+      // Usando market:// o Android abre direto no app da Play Store
+      url = selectedGame === 'max' 
+        ? "market://details?id=com.dts.freefiremax" 
+        : "market://details?id=com.dts.freefireth";
+    } else {
+      // iOS continua normal
+      url = selectedGame === 'max' 
+        ? "https://apps.apple.com/app/id1480516829" 
+        : "https://apps.apple.com/app/id1300146617";
+    }
+
+    window.location.href = url;
+  }, 1500);
+}
       }, (i + 1) * 1200) // Intervalo de 1.2 segundos entre cada mensagem
     })
   }
