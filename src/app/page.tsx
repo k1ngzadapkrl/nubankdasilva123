@@ -61,17 +61,6 @@ const startInjection = () => {
     }, (i + 1) * 1200);
   });
 };
-const getStoreUrl = () => {
-  if (selectedOs === 'android') {
-    return selectedGame === 'max'
-      ? "market://details?id=com.dts.freefiremax"
-      : "market://details?id=com.dts.freefireth";
-  }
-
-  return selectedGame === 'max'
-    ? "https://apps.apple.com/app/id1480516829"
-    : "https://apps.apple.com/app/id1300146617";
-};
 
 
 
