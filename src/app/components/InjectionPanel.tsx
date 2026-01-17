@@ -71,46 +71,32 @@ export default function InjectionPanel({
         {/* BOTÃO FINAL: Abre o jogo diretamente para resolver o bug do Android */}
        {showFinalButton && (
   <div className="mt-8 animate-in fade-in zoom-in duration-500 pb-10">
-    <button
-      onClick={() => {
-        if (typeof window === 'undefined') return;
+   <button
+  onClick={() => {
+    if (typeof window === 'undefined') return;
 
-        // ================= ANDROID =================
-        if (selectedOs === 'android') {
-          const pkg =
-            selectedGame === 'max'
-              ? 'com.dts.freefiremax'
-              : 'com.dts.freefireth';
+    // ANDROID
+    if (selectedOs === 'android') {
+      const pkg =
+        selectedGame === 'max'
+          ? 'com.dts.freefiremax'
+          : 'com.dts.freefireth';
 
-          window.location.href = `intent://#Intent;package=${pkg};end`;
+      window.location.href = `intent://#Intent;package=${pkg};end`;
+      return;
+    }
 
-          setTimeout(() => {
-            window.location.href =
-              `https://play.google.com/store/apps/details?id=${pkg}`;
-          }, 1500);
+    // iOS
+    const iosScheme =
+      selectedGame === 'max'
+        ? 'freefiremax://'
+        : 'freefireth://';
 
-          return;
-        }
-
-        // ================= iOS =================
-        const iosScheme =
-          selectedGame === 'max'
-            ? 'freefiremax://'
-            : 'freefireth://';
-
-        window.location.href = iosScheme;
-
-        setTimeout(() => {
-          window.location.href =
-            selectedGame === 'max'
-              ? 'https://apps.apple.com/app/id1480516829'
-              : 'https://apps.apple.com/app/id1300146617';
-        }, 1200);
-      }}
-      className="w-full bg-emerald-500 text-white font-black py-6 rounded-3xl flex flex-col items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.4)] active:scale-95 transition-all border-2 border-emerald-400/20"
-    >
-      <span className="text-base uppercase tracking-widest">
-        🚀 ABRIR FREE FIRE AGORA
+    window.location.href = iosScheme;
+  }}
+  className="w-full bg-emerald-500 text-white font-black py-6 rounded-3xl"
+>
+  🚀 ABRIR FREE FIRE AGORA
       </span>
       <span className="text-[10px] opacity-80 font-normal mt-1 uppercase">
         Clique para finalizar sincronização
