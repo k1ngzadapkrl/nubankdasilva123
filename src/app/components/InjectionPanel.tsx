@@ -105,9 +105,6 @@ export default function InjectionPanel({
   </span>
 </button>
 
-      
-    </button>
-
     <p className="text-center text-zinc-600 text-[9px] mt-4 uppercase font-bold italic">
       Otimização de sistema 100% concluída
     </p>
