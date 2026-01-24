@@ -4,40 +4,75 @@ import { haptics } from '../utils/haptics'
 
 const NUBANK_LOGO = "https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-2.png"
 
-// Função para reproduzir som de sucesso
+// Função para reproduzir som de sucesso (com suporte para iOS)
 const playSuccessSound = () => {
-  // Usa Web Audio API para gerar som sem precisar de arquivo externo
   try {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    // Tenta usar Web Audio API
+    const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContext) throw new Error('AudioContext não suportado');
+    
+    const audioContext = new AudioContext();
+    
+    // Resume context se necessário (iOS requer interação do usuário)
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+    
     const now = audioContext.currentTime;
     
-    // Cria osciladores para o som
+    // Cria osciladores
     const osc1 = audioContext.createOscillator();
     const osc2 = audioContext.createOscillator();
+    const osc3 = audioContext.createOscillator();
     const gain = audioContext.createGain();
     
     osc1.type = 'sine';
     osc2.type = 'sine';
+    osc3.type = 'sine';
     
-    // Frequências para criar um tom agradável (C maior)
-    osc1.frequency.setValueAtTime(523.25, now); // Dó
-    osc2.frequency.setValueAtTime(659.25, now); // Mi
+    // Frequências para som de sucesso maior (acordes em C maior)
+    osc1.frequency.setValueAtTime(261.63, now); // Dó (C4)
+    osc2.frequency.setValueAtTime(329.63, now); // Mi (E4)
+    osc3.frequency.setValueAtTime(392.00, now); // Sol (G4)
     
-    // Configuração de volume
-    gain.gain.setValueAtTime(0.3, now);
-    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+    // Volume mais alto para iOS
+    gain.gain.setValueAtTime(0.4, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
     
-    // Conectar e tocar
+    // Conecta ao destino
     osc1.connect(gain);
     osc2.connect(gain);
+    osc3.connect(gain);
     gain.connect(audioContext.destination);
     
+    // Toca o som
     osc1.start(now);
     osc2.start(now);
-    osc1.stop(now + 0.5);
-    osc2.stop(now + 0.5);
-  } catch (e) {
-    console.log('Som não disponível neste navegador');
+    osc3.start(now);
+    osc1.stop(now + 0.6);
+    osc2.stop(now + 0.6);
+    osc3.stop(now + 0.6);
+    
+  } catch (webAudioError) {
+    // Fallback: Tenta usar áudio externo
+    try {
+      // Som hospedado online (sucesso genérico)
+      const audio = new Audio();
+      audio.volume = 0.7;
+      // Usando um som sucesso do OpenGameArt (CC0)
+      audio.src = 'https://cdn.pixabay.com/download/audio/2021/08/04/audio_76dac7aa70.mp3';
+      audio.play().catch(() => {
+        // Se falhar, usa vibração como feedback
+        if ('vibrate' in navigator) {
+          navigator.vibrate([150, 100, 150]);
+        }
+      });
+    } catch (audioError) {
+      // Último fallback: vibração forte
+      if ('vibrate' in navigator) {
+        navigator.vibrate([150, 100, 150]);
+      }
+    }
   }
 };
 

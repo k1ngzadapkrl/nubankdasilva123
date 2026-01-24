@@ -1,12 +1,31 @@
 'use client'
 
+import { useState } from 'react'
 import { haptics } from '../utils/haptics'
+import { toggleBackgroundMusic } from '../utils/backgroundMusic'
 
 const NUBANK_LOGO = "https://logodownload.org/wp-content/uploads/2019/08/nubank-logo-2.png"
 
 export default function Login({ password, setPassword, handleLogin }: any) {
+  const [isMusicPlaying, setIsMusicPlaying] = useState(true)
+
+  const handleMusicToggle = () => {
+    haptics.light()
+    toggleBackgroundMusic()
+    setIsMusicPlaying(!isMusicPlaying)
+  }
+
   return (
     <div className="fixed inset-0 bg-[#070707] flex flex-col p-8 z-30 overflow-y-auto animate-in fade-in duration-500">
+      {/* Botão de Som no canto superior direito */}
+      <button
+        onClick={handleMusicToggle}
+        className="absolute top-8 right-8 text-zinc-500 hover:text-[#820AD1] transition-colors text-lg"
+        title={isMusicPlaying ? 'Desativar música' : 'Ativar música'}
+      >
+        {isMusicPlaying ? '🔊' : '🔇'}
+      </button>
+
       <div className="mt-12 mb-10 animate-in slide-in-from-top duration-700">
         <img src={NUBANK_LOGO} className="w-12 animate-pulse" alt="Nu" />
       </div>

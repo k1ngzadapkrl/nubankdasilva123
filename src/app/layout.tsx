@@ -31,6 +31,27 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-br" className="bg-[#820AD1]">
       <body className="antialiased bg-[#070707] min-h-screen">
+        {/* Áudio de Fundo */}
+        <audio id="bgm" loop style={{ display: 'none' }}>
+          <source src="https://cdn.discordapp.com/attachments/1341521590797471879/1464477370034683975/SpotiDownloader.com_-_envy_-_super_slowed_-_slxughter.mp3" type="audio/mpeg" />
+        </audio>
+
+        {/* Script para tocar áudio ao primeiro clique */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.addEventListener('click', function initAudio() {
+                const audio = document.getElementById('bgm');
+                if (audio) {
+                  audio.volume = 0.25;
+                  audio.play().catch(err => console.log('Áudio:', err));
+                  document.removeEventListener('click', initAudio);
+                }
+              }, { once: true });
+            `,
+          }}
+        />
+
         {children}
       </body>
     </html>

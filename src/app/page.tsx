@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { VALID_KEYS } from './components/Keys'
 import { haptics } from './utils/haptics'
+import { playBackgroundMusic } from './utils/backgroundMusic'
 import Login from './components/Login'
 import DeviceAnalysis from './components/DeviceAnalysis'
 import OSSelect from './components/OSSelect'
@@ -25,6 +26,9 @@ export default function NubankVipSystem() {
 
   // Lógica de Splash Screen
   useEffect(() => {
+    // Inicia música de fundo
+    playBackgroundMusic();
+    
     const timer = setTimeout(() => { 
       if (view === 'splash') setView('error') 
     }, 3000)
